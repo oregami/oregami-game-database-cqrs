@@ -40,11 +40,7 @@ public class OregamiApplication {
         CommandBus commandBus = config.commandBus();
         String gameId = UUID.randomUUID().toString();
         commandBus.dispatch(GenericCommandMessage.asCommandMessage(new CreateGameCommand(gameId, GameEntryType.GAME)));
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        
         String releaseGroupId = UUID.randomUUID().toString();
         commandBus.dispatch(GenericCommandMessage.asCommandMessage(new AddReleaseGroupCommand(gameId, releaseGroupId, ReleaseGroupReason.ORIGINAL)));
 

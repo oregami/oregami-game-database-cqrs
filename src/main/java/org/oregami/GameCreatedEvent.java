@@ -1,7 +1,6 @@
-package org.oregami.game.events;
+package org.oregami;
 
 import lombok.Getter;
-import org.oregami.game.GameEntryType;
 
 
 /**

@@ -1,4 +1,4 @@
-package org.oregami.game;
+package org.oregami;
 
 
 /**

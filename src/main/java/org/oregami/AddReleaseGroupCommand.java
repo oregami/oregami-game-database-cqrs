@@ -1,10 +1,8 @@
-package org.oregami.game.commands;
+package org.oregami;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
-import org.oregami.game.GameEntryType;
-import org.oregami.game.ReleaseGroupReason;
 
 /**
  * Created by sebastian on 03.11.16.

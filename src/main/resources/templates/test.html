@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head></head>
+
+<body>
+test10
+<hr/>
+<div class="content">
+    <div>
+        <div th:each="entry : ${list}">
+            <div th:text="${entry}"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

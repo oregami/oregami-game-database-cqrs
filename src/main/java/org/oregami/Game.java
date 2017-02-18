@@ -1,17 +1,11 @@
-package org.oregami.game;
+package org.oregami;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.commandhandling.model.AggregateIdentifier;
-import org.axonframework.commandhandling.model.AggregateLifecycle;
-import org.axonframework.commandhandling.model.AggregateMember;
-import org.axonframework.commandhandling.model.AggregateRoot;
+import org.axonframework.commandhandling.model.*;
 import org.axonframework.eventsourcing.EventSourcingHandler;
-import org.oregami.game.commands.AddReleaseGroupCommand;
-import org.oregami.game.commands.CreateGameCommand;
-import org.oregami.game.events.ReleaseGroupAddedEvent;
-import org.oregami.game.events.GameCreatedEvent;
+import org.axonframework.spring.stereotype.Aggregate;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,6 +15,7 @@ import java.util.Set;
  */
 @NoArgsConstructor
 @AggregateRoot
+@Aggregate
 @EqualsAndHashCode
 public class Game {
 
@@ -43,15 +38,15 @@ public class Game {
     }
 
     @CommandHandler
-    public void on(AddReleaseGroupCommand command) {
+    public String on(AddReleaseGroupCommand command) {
         AggregateLifecycle.apply(new ReleaseGroupAddedEvent(command.getGameId(), command.getReleaseGroupId(), command.getReleaseGroupReason()));
+        return command.getReleaseGroupId();
     }
 
     @EventSourcingHandler
     public void in(ReleaseGroupAddedEvent event) {
         ReleaseGroup rg = new ReleaseGroup(event.getReleaseGroupId(), event.getReleaseGroupReason());
         this.releaseGroups.add(rg);
-
     }
 
 

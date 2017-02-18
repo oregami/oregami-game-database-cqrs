@@ -1,14 +1,8 @@
-package org.oregami.game.commands;
-
-import lombok.Getter;
-import lombok.Setter;
-import org.oregami.game.GameEntryType;
+package org.oregami;
 
 /**
  * Created by sebastian on 03.11.16.
  */
-@Setter
-@Getter
 public class CreateGameCommand {
 
     private String id;
@@ -19,4 +13,11 @@ public class CreateGameCommand {
         this.gameEntryType = gameEntryType;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public GameEntryType getGameEntryType() {
+        return gameEntryType;
+    }
 }

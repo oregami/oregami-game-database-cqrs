@@ -1,6 +1,4 @@
-package org.oregami.game.events;
-
-import org.oregami.game.ReleaseGroupReason;
+package org.oregami;
 
 /**
  * Created by sebastian on 13.12.16.
@@ -25,5 +23,9 @@ public class ReleaseGroupAddedEvent {
 
     public ReleaseGroupReason getReleaseGroupReason() {
         return releaseGroupReason;
+    }
+
+    public String getGameId() {
+        return gameId;
     }
 }

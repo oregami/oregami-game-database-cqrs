@@ -1,9 +1,4 @@
-package org.oregami.game;
-
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
-
-import javax.persistence.Entity;
+package org.oregami;
 
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+5+-+Game+Entry+Type

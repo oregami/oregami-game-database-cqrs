@@ -4,10 +4,13 @@ import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.Before;
 import org.junit.Test;
-import org.oregami.game.commands.AddReleaseGroupCommand;
-import org.oregami.game.commands.CreateGameCommand;
-import org.oregami.game.events.GameCreatedEvent;
-import org.oregami.game.events.ReleaseGroupAddedEvent;
+import org.oregami.Game;
+import org.oregami.GameEntryType;
+import org.oregami.ReleaseGroupReason;
+import org.oregami.AddReleaseGroupCommand;
+import org.oregami.CreateGameCommand;
+import org.oregami.GameCreatedEvent;
+import org.oregami.ReleaseGroupAddedEvent;
 
 import java.util.UUID;
 
@@ -28,7 +31,7 @@ public class GameTest {
         String id = UUID.randomUUID().toString();
         fixture.givenNoPriorActivity()
                 .when(new CreateGameCommand(id, GameEntryType.GAME))
-        .expectEvents(new GameCreatedEvent(id, GameEntryType.GAME))
+                .expectEvents(new GameCreatedEvent(id, GameEntryType.GAME))
         ;
 
     }

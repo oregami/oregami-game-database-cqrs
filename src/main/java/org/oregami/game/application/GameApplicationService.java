@@ -1,14 +1,13 @@
-package org.oregami;
+package org.oregami.game.application;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
-import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
+import org.oregami.game.command.AddReleaseGroupCommand;
+import org.oregami.game.command.CreateGameCommand;
+import org.oregami.game.GameEntryType;
+import org.oregami.game.ReleaseGroupReason;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**

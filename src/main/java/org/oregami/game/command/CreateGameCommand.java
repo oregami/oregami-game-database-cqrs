@@ -1,4 +1,6 @@
-package org.oregami;
+package org.oregami.game.command;
+
+import org.oregami.game.GameEntryType;
 
 /**
  * Created by sebastian on 03.11.16.

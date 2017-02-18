@@ -1,4 +1,6 @@
-package org.oregami;
+package org.oregami.game.event;
+
+import org.oregami.game.ReleaseGroupReason;
 
 /**
  * Created by sebastian on 13.12.16.

@@ -4,13 +4,10 @@ import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;
 import org.junit.Before;
 import org.junit.Test;
-import org.oregami.Game;
-import org.oregami.GameEntryType;
-import org.oregami.ReleaseGroupReason;
-import org.oregami.AddReleaseGroupCommand;
-import org.oregami.CreateGameCommand;
-import org.oregami.GameCreatedEvent;
-import org.oregami.ReleaseGroupAddedEvent;
+import org.oregami.game.command.AddReleaseGroupCommand;
+import org.oregami.game.command.CreateGameCommand;
+import org.oregami.game.event.GameCreatedEvent;
+import org.oregami.game.event.ReleaseGroupAddedEvent;
 
 import java.util.UUID;
 

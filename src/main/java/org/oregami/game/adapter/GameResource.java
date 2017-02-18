@@ -24,16 +24,15 @@ public class GameResource {
     private EventStore eventStore;
 
     @RequestMapping(value = "/createGame", method = RequestMethod.POST)
-    public CompletableFuture<Object> createGame(@RequestBody Map<String, String> request) {
+    public CompletableFuture<Object> createGame(@RequestParam String gameEntryType) {
         String id = UUID.randomUUID().toString();
-        return gameApplicationService.createNewGame(id,request.get("gameEntryType"));
+        return gameApplicationService.createNewGame(id, gameEntryType);
     }
 
-    @RequestMapping(value = "/addReleaseGroup", method = RequestMethod.POST)
-    public CompletableFuture<Object> addReleaseGroup(@RequestBody Map<String, String> request) {
-        String gameId = request.get("gameId");
+    @RequestMapping(value = "/{gameId}/addReleaseGroup", method = RequestMethod.POST)
+    public CompletableFuture<Object> addReleaseGroup(@PathVariable String gameId, @RequestParam String releaseGroupReason) {
         String releaseGroupId = UUID.randomUUID().toString();
-        return gameApplicationService.addReleaseGroup(gameId, releaseGroupId, request.get("releaseGroupReason"));
+        return gameApplicationService.addReleaseGroup(gameId, releaseGroupId, releaseGroupReason);
     }
 
     @GetMapping(value = "/{gameId}")

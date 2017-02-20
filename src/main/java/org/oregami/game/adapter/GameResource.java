@@ -3,7 +3,9 @@ package org.oregami.game.adapter;
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.oregami.game.RGameRepository;
 import org.oregami.game.application.GameApplicationService;
+import org.oregami.game.readmodel.RGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,9 @@ public class GameResource {
     @Autowired
     private EventStore eventStore;
 
+    @Autowired
+    private RGameRepository gameRepository;
+
     @RequestMapping(value = "/createGame", method = RequestMethod.POST)
     public CompletableFuture<Object> createGame(@RequestParam String gameEntryType) {
         String id = UUID.randomUUID().toString();
@@ -35,8 +40,8 @@ public class GameResource {
         return gameApplicationService.addReleaseGroup(gameId, releaseGroupId, releaseGroupReason);
     }
 
-    @GetMapping(value = "/{gameId}")
-    public List<DomainEventMessage> getAll(@PathVariable String gameId) {
+    @GetMapping(value = "/{gameId}/events")
+    public List<DomainEventMessage> getAllEvents(@PathVariable String gameId) {
         DomainEventStream domainEventStream = eventStore.readEvents(gameId);
         Iterator<? extends DomainEventMessage<?>> iterator = domainEventStream.asStream().iterator();
         List<DomainEventMessage> list = new ArrayList<>();
@@ -45,6 +50,16 @@ public class GameResource {
         }
 
         return list;
+    }
+
+    @GetMapping
+    public List<RGame> getAll() {
+        return gameRepository.findAll();
+    }
+
+    @GetMapping(value = "/{gameId}")
+    public RGame getOne(@PathVariable String gameId) {
+        return gameRepository.findOne(gameId);
     }
 
 

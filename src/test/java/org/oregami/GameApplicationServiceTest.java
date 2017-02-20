@@ -21,7 +21,7 @@ import java.util.concurrent.ExecutionException;
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest()
 public class GameApplicationServiceTest {
 
     @Autowired

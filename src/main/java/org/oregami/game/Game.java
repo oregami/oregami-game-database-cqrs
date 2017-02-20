@@ -21,7 +21,6 @@ import java.util.Set;
  * Created by sebastian on 03.11.16.
  */
 @NoArgsConstructor
-@AggregateRoot
 @Aggregate
 @EqualsAndHashCode
 public class Game {

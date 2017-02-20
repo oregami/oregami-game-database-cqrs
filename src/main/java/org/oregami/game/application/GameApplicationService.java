@@ -16,15 +16,15 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class GameApplicationService {
 
+    /**
+     *
+     */
+    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
     private CommandGateway commandGateway;
 
     public CompletableFuture<Object> createNewGame(String gameId, String gameEntryType) {
         return commandGateway.send(new CreateGameCommand(gameId, GameEntryType.valueOf(gameEntryType)));
-        /*
-        String releaseGroupId = UUID.randomUUID().toString();
-        commandBus.dispatch(GenericCommandMessage.asCommandMessage(new AddReleaseGroupCommand(gameId, releaseGroupId, ReleaseGroupReason.ORIGINAL)));
-        */
     }
 
     public CompletableFuture<Object> addReleaseGroup(String gameId, String releaseGroupId, String releaseGroupReason) {

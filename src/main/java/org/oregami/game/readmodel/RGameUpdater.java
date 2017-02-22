@@ -7,6 +7,8 @@ import org.oregami.game.event.GameCreatedEvent;
 import org.oregami.game.event.ReleaseGroupAddedEvent;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 /**
  * Created by sebastian on 19.02.17.
  */
@@ -21,7 +23,8 @@ public class RGameUpdater {
 
     @EventHandler
     public void on(GameCreatedEvent event) {
-        RGame g = new RGame(event.getGameId(), event.getGameEntryType());
+        RGame g = new RGame(event.getGameId(), event.getGameEntryType(), event.getWorkingTitle());
+        g.setChangeTime(LocalDateTime.now());
         gameRepository.save(g);
     }
 
@@ -30,6 +33,7 @@ public class RGameUpdater {
         RGame game = gameRepository.findOne(event.getGameId());
         RReleaseGroup releaseGroup = new RReleaseGroup(event.getReleaseGroupId(), event.getReleaseGroupReason());
         game.addReleaseGroup(releaseGroup);
+        game.setChangeTime(LocalDateTime.now());
         gameRepository.save(game);
     }
 }

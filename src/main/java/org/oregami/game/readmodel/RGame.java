@@ -17,13 +17,11 @@
 package org.oregami.game.readmodel;
 
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.NamedQueries;
-import org.hibernate.annotations.NamedQuery;
 import org.oregami.game.GameEntryType;
-import org.oregami.game.ReleaseGroup;
-import org.oregami.game.readmodel.BaseEntityUUID;
+import org.oregami.basic.BaseEntityUUID;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -33,18 +31,26 @@ import java.util.Set;
 public class RGame extends BaseEntityUUID {
 
     private static final long serialVersionUID = -2362683596950421365L;
-
+    private String workingTitle;
     private GameEntryType gameEntryType;
 
-    public RGame(String id, GameEntryType gameEntryType) {
+    public RGame(String id, GameEntryType gameEntryType, String workingTitle) {
         super(id);
         this.gameEntryType = gameEntryType;
+        this.workingTitle = workingTitle;
     }
 
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
     @JoinColumn
     private Set<RReleaseGroup> releaseGroupList = new HashSet<>();
+
+    @Column
+    private LocalDateTime changeTime;
+
+    public void setChangeTime(LocalDateTime changeTime) {
+        this.changeTime = changeTime;
+    }
 
     public void addReleaseGroup(RReleaseGroup vog) {
         this.releaseGroupList.add(vog);
@@ -62,4 +68,11 @@ public class RGame extends BaseEntityUUID {
         this.gameEntryType = gameEntryType;
     }
 
+    public String getWorkingTitle() {
+        return workingTitle;
+    }
+
+    public LocalDateTime getChangeTime() {
+        return changeTime;
+    }
 }

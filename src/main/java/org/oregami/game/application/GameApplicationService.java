@@ -23,8 +23,8 @@ public class GameApplicationService {
     @Autowired
     private CommandGateway commandGateway;
 
-    public CompletableFuture<Object> createNewGame(String gameId, String gameEntryType) {
-        return commandGateway.send(new CreateGameCommand(gameId, GameEntryType.valueOf(gameEntryType)));
+    public CompletableFuture<Object> createNewGame(String gameId, String gameEntryType, String workingTitle) {
+        return commandGateway.send(new CreateGameCommand(gameId, GameEntryType.valueOf(gameEntryType), workingTitle));
     }
 
     public CompletableFuture<Object> addReleaseGroup(String gameId, String releaseGroupId, String releaseGroupReason) {

@@ -7,6 +7,8 @@ import org.oregami.game.RGameRepository;
 import org.oregami.game.application.GameApplicationService;
 import org.oregami.game.readmodel.RGame;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
@@ -16,7 +18,7 @@ import java.util.concurrent.CompletableFuture;
  * Created by sebastian on 17.12.16.
  */
 @RequestMapping("/games")
-@RestController
+@Controller
 public class GameResource {
 
     @Autowired
@@ -28,20 +30,24 @@ public class GameResource {
     @Autowired
     private RGameRepository gameRepository;
 
-    @RequestMapping(value = "/createGame", method = RequestMethod.POST)
-    public CompletableFuture<Object> createGame(@RequestParam String gameEntryType) {
+    @PostMapping(value = "/createGame")
+    public String createGame(@RequestParam String gameEntryType, @RequestParam String workingTitle, Model model) {
         String id = UUID.randomUUID().toString();
-        return gameApplicationService.createNewGame(id, gameEntryType);
+        CompletableFuture<Object> completableFuture = gameApplicationService.createNewGame(id, gameEntryType, workingTitle);
+        model.addAttribute("gameId", id);
+        return "games/created";
     }
 
-    @RequestMapping(value = "/{gameId}/addReleaseGroup", method = RequestMethod.POST)
-    public CompletableFuture<Object> addReleaseGroup(@PathVariable String gameId, @RequestParam String releaseGroupReason) {
+    @PostMapping(value = "/{gameId}/addReleaseGroup")
+    public String addReleaseGroup(@PathVariable String gameId, @RequestParam String releaseGroupReason, Model model) {
         String releaseGroupId = UUID.randomUUID().toString();
-        return gameApplicationService.addReleaseGroup(gameId, releaseGroupId, releaseGroupReason);
+        gameApplicationService.addReleaseGroup(gameId, releaseGroupId, releaseGroupReason);
+        model.addAttribute("gameId", gameId);
+        return "games/update_done";
     }
 
     @GetMapping(value = "/{gameId}/events")
-    public List<DomainEventMessage> getAllEvents(@PathVariable String gameId) {
+    public List<DomainEventMessage> getAllEvents(@PathVariable String gameId, Model model) {
         DomainEventStream domainEventStream = eventStore.readEvents(gameId);
         Iterator<? extends DomainEventMessage<?>> iterator = domainEventStream.asStream().iterator();
         List<DomainEventMessage> list = new ArrayList<>();
@@ -53,14 +59,29 @@ public class GameResource {
     }
 
     @GetMapping
-    public List<RGame> getAll() {
-        return gameRepository.findAll();
+    public String  getAll(Model model) {
+        model.addAttribute("list", gameRepository.findAll());
+        return "games/list";
     }
 
     @GetMapping(value = "/{gameId}")
-    public RGame getOne(@PathVariable String gameId) {
-        return gameRepository.findOne(gameId);
+    public String getOne(@PathVariable String gameId, Model model) {
+        RGame game = gameRepository.findOne(gameId);
+        model.addAttribute("game", game);
+        return "games/one";
     }
+
+    @GetMapping(value = "/createGame")
+    public String createGame(Model model) {
+        return "games/create";
+    }
+
+    @GetMapping(value = "/{gameId}/addReleaseGroup")
+    public String addReleaseGroup(@PathVariable String gameId, Model model) {
+        model.addAttribute("gameId", gameId);
+        return "games/addReleaseGroup";
+    }
+
 
 
 }

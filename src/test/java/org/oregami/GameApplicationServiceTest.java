@@ -34,7 +34,7 @@ public class GameApplicationServiceTest {
     @Test
     public void createGame() throws ExecutionException, InterruptedException {
         String gameId = UUID.randomUUID().toString();
-        CompletableFuture<Object> resultId = gameApplicationService.createNewGame(gameId, GameEntryType.GAME.name());
+        CompletableFuture<Object> resultId = gameApplicationService.createNewGame(gameId, GameEntryType.GAME.name(), "t1");
         Assert.assertThat(resultId.get(), Matchers.equalTo(gameId));
     }
 
@@ -42,7 +42,7 @@ public class GameApplicationServiceTest {
     @Test
     public void createGameAndAddReleaseGroup() throws ExecutionException, InterruptedException {
         String gameId = UUID.randomUUID().toString();
-        CompletableFuture<Object> resultId = gameApplicationService.createNewGame(gameId, GameEntryType.GAME.name());
+        CompletableFuture<Object> resultId = gameApplicationService.createNewGame(gameId, GameEntryType.GAME.name(), "t1");
         Assert.assertThat(resultId.get(), Matchers.equalTo(gameId));
 
         String releaseGroupId = UUID.randomUUID().toString();

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Games - List'"></head>
+
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_GAMES)"></nav>
+
+
+<div class="ui segment">
+
+    <div th:each="game : ${list}">
+        <h2 class="ui top attached header" th:text="${game.workingTitle}"/>
+        <div class="ui attached segment">
+            game.gameEntryType = <span th:text="${game.gameEntryType}"/><br/>
+            <a th:href="${'/games/' + game.id}" th:text="#{games.viewGame}"></a><br/>
+        </div>
+    </div>
+
+    <div class="ui grey inverted top attached header" th:text="#{common.actions}"/>
+    <div class="ui attached segment">
+        <a href="/games/createGame">
+            <button class="ui primary basic button" th:text="#{games.createNewGame}"></button>
+        </a>
+    </div>
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+
+</body>
+</html>

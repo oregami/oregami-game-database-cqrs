@@ -27,8 +27,8 @@ public class GameTest {
     public void createGame() throws Exception {
         String id = UUID.randomUUID().toString();
         fixture.givenNoPriorActivity()
-                .when(new CreateGameCommand(id, GameEntryType.GAME))
-                .expectEvents(new GameCreatedEvent(id, GameEntryType.GAME))
+                .when(new CreateGameCommand(id, GameEntryType.GAME, "t1"))
+                .expectEvents(new GameCreatedEvent(id, GameEntryType.GAME, "t1"))
         ;
 
     }
@@ -37,7 +37,7 @@ public class GameTest {
     public void addReleaseGroup() throws Exception {
         String gameId = UUID.randomUUID().toString();
         String rgId = UUID.randomUUID().toString();
-        fixture.given(new GameCreatedEvent(gameId, GameEntryType.GAME))
+        fixture.given(new GameCreatedEvent(gameId, GameEntryType.GAME, "t1"))
                 .when(new AddReleaseGroupCommand(gameId, rgId, ReleaseGroupReason.ORIGINAL))
                 .expectEvents(new ReleaseGroupAddedEvent(gameId, rgId, ReleaseGroupReason.ORIGINAL))
 

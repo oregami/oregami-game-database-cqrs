@@ -1,8 +1,7 @@
 package org.oregami.game.readmodel;
 
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import org.axonframework.commandhandling.model.EntityId;
+import org.oregami.basic.BaseEntityUUID;
 import org.oregami.game.ReleaseGroupReason;
 
 import javax.persistence.Entity;

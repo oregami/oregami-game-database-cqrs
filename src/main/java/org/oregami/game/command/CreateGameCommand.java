@@ -7,12 +7,14 @@ import org.oregami.game.GameEntryType;
  */
 public class CreateGameCommand {
 
+    private final String workingTitle;
     private String id;
     private GameEntryType gameEntryType;
 
-    public CreateGameCommand(String id, GameEntryType gameEntryType) {
+    public CreateGameCommand(String id, GameEntryType gameEntryType, String workingTitle) {
         this.id = id;
         this.gameEntryType = gameEntryType;
+        this.workingTitle = workingTitle;
     }
 
     public String getId() {
@@ -21,5 +23,9 @@ public class CreateGameCommand {
 
     public GameEntryType getGameEntryType() {
         return gameEntryType;
+    }
+
+    public String getWorkingTitle() {
+        return workingTitle;
     }
 }

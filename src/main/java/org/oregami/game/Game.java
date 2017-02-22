@@ -29,13 +29,14 @@ public class Game {
     @AggregateIdentifier
     private String id;
 
-
     @AggregateMember
     Set<ReleaseGroup> releaseGroups = new HashSet<>();
 
+    String workingTitle;
+
     @CommandHandler
     public Game(CreateGameCommand command) {
-        AggregateLifecycle.apply(new GameCreatedEvent(command.getId(), command.getGameEntryType()));
+        AggregateLifecycle.apply(new GameCreatedEvent(command.getId(), command.getGameEntryType(), command.getWorkingTitle()));
     }
 
     @EventSourcingHandler

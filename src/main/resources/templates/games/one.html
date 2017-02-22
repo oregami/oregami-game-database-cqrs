@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Games - List'"></head>
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_GAMES)"></nav>
+
+
+<div class="ui segment">
+
+    <h2 class="ui top attached header" th:text="${game.workingTitle}"/>
+    <h4 class="ui attached header" th:text="#{game.basicdata}"></h4>
+    <div class="ui attached segment">
+        <div><label>id:</label> <span th:text="${game.id}"/></div>
+        <div><label>workingTitle:</label> <span th:text="${game.workingTitle}"/></div>
+        <div><label>gameEntryType:</label> <span th:text="${game.gameEntryType}"/></div>
+        <div><label>changeTime</label> <span th:text="${game.changeTime}"/></div>
+    </div>
+
+    <th:block th:if="${game.releaseGroupList.size()>0}">
+        <h4 class="ui attached header" th:text="#{game.releaseGroup}"></h4>
+        <div class="ui attached segment" th:each="rg : ${game.releaseGroupList}">
+            <div>
+                <label>id:</label>
+                <span th:text="${rg.id}"/>
+            </div>
+            <div>
+                <label>releaseGroupReason:</label>
+                <span th:text="${rg.releaseGroupReason}"/>
+            </div>
+        </div>
+    </th:block>
+
+
+    <div class="ui grey inverted top attached header" th:text="#{common.actions}"/>
+    <div class="ui attached segment">
+
+        <a th:href="${'/games/' + game.id + '/addReleaseGroup'}">
+            <button class="ui primary basic button" th:text="#{game.addReleaseGroup}"/>
+        </a>
+    </div>
+
+</div>
+
+
+</body>
+</html>

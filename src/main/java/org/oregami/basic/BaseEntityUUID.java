@@ -14,7 +14,7 @@
  * 	You should have received a copy of the GNU Affero General Public License
  * 	along with this program. If not, see <http://www.gnu.org/licenses/>.
  ******************************************************************************/
-package org.oregami.game.readmodel;
+package org.oregami.basic;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
@@ -37,9 +37,6 @@ public abstract class BaseEntityUUID implements Serializable
 	@Id
     @Column(name = "id", updatable = false, nullable = false)
     private String id = null;
-
-    @Column
-    private LocalDateTime changeTime;
 
     public BaseEntityUUID(String id) {
         this.id = id;

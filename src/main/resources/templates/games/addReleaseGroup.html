@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Games - List'"></head>
+
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_GAMES)"></nav>
+
+<div>
+
+    <form class="ui form" method="POST" th:attr="action=${'/games/' + gameId + '/addReleaseGroup'}">
+        <h4 class="ui dividing header">Add Release Group</h4>
+
+        <div class="inline field">
+            <label>Release GroupReason</label>
+            <select name="releaseGroupReason">
+                <option>ORIGINAL</option>
+                <option>DEMO_PROMO</option>
+                <option>ENHANCED</option>
+                <option>REMAKE</option>
+                <option>CENSORED</option>
+            </select>
+        </div>
+        <button class="ui button" type="submit">add release group</button>
+    </form>
+
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+
+</body>
+</html>

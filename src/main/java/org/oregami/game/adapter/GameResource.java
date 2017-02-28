@@ -1,5 +1,10 @@
 package org.oregami.game.adapter;
 
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.EventStore;
@@ -48,14 +53,7 @@ public class GameResource {
 
     @GetMapping(value = "/{gameId}/events")
     public List<DomainEventMessage> getAllEvents(@PathVariable String gameId, Model model) {
-        DomainEventStream domainEventStream = eventStore.readEvents(gameId);
-        Iterator<? extends DomainEventMessage<?>> iterator = domainEventStream.asStream().iterator();
-        List<DomainEventMessage> list = new ArrayList<>();
-        while (iterator.hasNext()) {
-            list.add(iterator.next());
-        }
-
-        return list;
+        return getEventsForGame(gameId);
     }
 
     @GetMapping
@@ -68,6 +66,7 @@ public class GameResource {
     public String getOne(@PathVariable String gameId, Model model) {
         RGame game = gameRepository.findOne(gameId);
         model.addAttribute("game", game);
+        model.addAttribute("events", getEventsForGameAsStrings(gameId));
         return "games/one";
     }
 
@@ -82,6 +81,34 @@ public class GameResource {
         return "games/addReleaseGroup";
     }
 
+
+
+    private List<DomainEventMessage> getEventsForGame(String gameId) {
+        List<DomainEventMessage> list = new ArrayList<>();
+        DomainEventStream domainEventStream = eventStore.readEvents(gameId);
+        Iterator<? extends DomainEventMessage<?>> iterator = domainEventStream.asStream().iterator();
+        while (iterator.hasNext()) {
+            list.add(iterator.next());
+        }
+        return list;
+    }
+
+
+    private List<Map<String, Object>> getEventsForGameAsStrings(String gameId) {
+
+        List<Map<String, Object>> result = new ArrayList<>();
+        DomainEventStream domainEventStream = eventStore.readEvents(gameId);
+        Iterator<? extends DomainEventMessage<?>> iterator = domainEventStream.asStream().iterator();
+        while (iterator.hasNext()) {
+            LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+            DomainEventMessage<?> event = iterator.next();
+            map.put("Timestamp", event.getTimestamp());
+            map.put("Payload",  event.getPayloadType().getSimpleName() + ": " + ToStringBuilder.reflectionToString(event.getPayload(), RecursiveToStringStyle.JSON_STYLE));
+            map.put("MetaData", ToStringBuilder.reflectionToString(event.getMetaData(), RecursiveToStringStyle.JSON_STYLE));
+            result.add(map);
+        }
+        return result;
+    }
 
 
 }

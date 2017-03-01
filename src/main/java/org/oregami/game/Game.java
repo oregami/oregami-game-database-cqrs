@@ -6,13 +6,14 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.commandhandling.model.AggregateMember;
-import org.axonframework.commandhandling.model.AggregateRoot;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.oregami.game.command.AddReleaseGroupCommand;
 import org.oregami.game.command.CreateGameCommand;
 import org.oregami.game.event.GameCreatedEvent;
 import org.oregami.game.event.ReleaseGroupAddedEvent;
+import org.oregami.gamingEnvironments.command.AddTitleCommand;
+import org.oregami.gamingEnvironments.event.TitleAddedEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -55,7 +56,6 @@ public class Game {
         ReleaseGroup rg = new ReleaseGroup(event.getReleaseGroupId(), event.getReleaseGroupReason());
         this.releaseGroups.add(rg);
     }
-
 
 
 }

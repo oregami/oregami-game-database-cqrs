@@ -7,9 +7,11 @@ import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
 import org.axonframework.spring.config.EnableAxon;
+import org.oregami.regions.application.RegionApplicationService;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,6 +26,7 @@ import java.util.Locale;
 @ComponentScan({"org.oregami", "org.oregami.game"})
 public class OregamiApplication {
 
+
     public static void main(String[] args) {
 
         org.slf4j.Logger logger = LoggerFactory.getLogger(OregamiApplication.class);
@@ -32,7 +35,16 @@ public class OregamiApplication {
         logger.info("Message logged at INFO level");
         logger.debug("Message logged at DEBUG level");
 
-        SpringApplication.run(OregamiApplication.class, args);
+        ConfigurableApplicationContext context = SpringApplication.run(OregamiApplication.class, args);
+        RegionApplicationService regionApplicationService = context.getBean(RegionApplicationService.class);
+        regionApplicationService.createNewRegion("EUROPE", true, false, "Europe");
+        regionApplicationService.createNewRegion("UNITED_STATES", true, false, "UNITED_STATES");
+        regionApplicationService.createNewRegion("UNITED_KINGDOM", true, false, "UNITED_KINGDOM");
+        regionApplicationService.createNewRegion("FRANCE", true, false, "FRANCE");
+        regionApplicationService.createNewRegion("JAPAN", true, false, "JAPAN");
+        regionApplicationService.createNewRegion("CHINA", true, false, "CHINA");
+        regionApplicationService.createNewRegion("NORTH_AMERICA", true, false, "NORTH_AMERICA");
+
 
     }
 

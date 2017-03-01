@@ -10,15 +10,57 @@
 <nav th:replace="navigation :: navigation(URL_GAMINGENVIRONMENTS)"></nav>
 
 
-<div class="content">
-    <h1>
-        <a th:href="@{${URL_GAMINGENVIRONMENTS}}"><i class="fa fa-chevron-circle-left color-primary-0"></i></a>
-        <span th:each="title,iterStat : ${one.title}" th:text="!${iterStat.first} ? ' / ' + ${title.text.text} :${title.text.text}"></span>
-    </h1>
+<div class="ui segment">
+
+    <h2 class="ui top attached header" th:text="${gamingEnvironment.workingTitle}"/>
+    <h4 class="ui attached header" th:text="#{gamingEnvironment.basicdata}"></h4>
+    <div class="ui attached segment">
+        <div><label>id:</label> <span th:text="${gamingEnvironment.id}"/></div>
+        <div><label>workingTitle:</label> <span th:text="${gamingEnvironment.workingTitle}"/></div>
+        <div><label>changeTime</label> <span th:text="${gamingEnvironment.changeTime}"/></div>
+    </div>
+
+    <th:block th:if="${gamingEnvironment.gametitles.size()>0}">
+        <h4 class="ui attached header" th:text="#{gamingEnvironment.title}"></h4>
+        <div class="ui attached segment" th:each="title : ${gamingEnvironment.gametitles}">
+            <div>
+                <label>title:</label>
+                <span th:text="${title.title}"/>
+            </div>
+            <div>
+                <label>region:</label>
+                <span th:text="${title.regionId!=null ? title.regionId.value : '-'}"/>
+            </div>
+            <div>
+                <label>language:</label>
+                <span th:text="${title.language}"/>
+            </div>
+            <div>
+                <label>script:</label>
+                <span th:text="${title.script}"/>
+            </div>
+        </div>
+    </th:block>
 
 
+    <div class="ui grey inverted top attached header" th:text="#{common.actions}"/>
+    <div class="ui attached segment">
+
+        <a th:href="${'/gamingEnvironments/' + gamingEnvironment.id + '/addTitle'}">
+            <button class="ui primary basic button" th:text="#{gamingEnvironment.addTitle}"/>
+        </a>
+    </div>
 
 </div>
+
+
+<div class="ui segment">
+    <div class="ui grey inverted top attached header" th:text="#{common.events}"/>
+    <div th:each="event : ${events}" class="ui attached segment">
+        <span th:text="${event.toString()}"/>
+    </div>
+</div>
+
 
 
 <div th:replace="footer :: copy"></div>

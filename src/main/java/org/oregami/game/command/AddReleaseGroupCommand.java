@@ -1,15 +1,12 @@
 package org.oregami.game.command;
 
 import lombok.Getter;
-import lombok.Setter;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 import org.oregami.game.ReleaseGroupReason;
 
 /**
  * Created by sebastian on 03.11.16.
  */
-@Setter
-@Getter
 public class AddReleaseGroupCommand {
 
 
@@ -26,4 +23,15 @@ public class AddReleaseGroupCommand {
         this.releaseGroupReason = releaseGroupReason;
     }
 
+    public String getGameId() {
+        return gameId;
+    }
+
+    public String getReleaseGroupId() {
+        return releaseGroupId;
+    }
+
+    public ReleaseGroupReason getReleaseGroupReason() {
+        return releaseGroupReason;
+    }
 }

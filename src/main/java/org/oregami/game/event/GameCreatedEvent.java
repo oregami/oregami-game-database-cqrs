@@ -1,6 +1,9 @@
 package org.oregami.game.event;
 
 import lombok.Getter;
+import org.apache.commons.lang3.builder.RecursiveToStringStyle;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 import org.oregami.game.GameEntryType;
 
 
@@ -21,5 +24,10 @@ public class GameCreatedEvent {
         this.gameId = gameId;
         this.gameEntryType = gameEntryType;
         this.workingTitle = workingTitle;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, RecursiveToStringStyle.JSON_STYLE);
     }
 }

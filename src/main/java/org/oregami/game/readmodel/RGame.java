@@ -18,7 +18,7 @@ package org.oregami.game.readmodel;
 
 import lombok.NoArgsConstructor;
 import org.oregami.game.GameEntryType;
-import org.oregami.basic.BaseEntityUUID;
+import org.oregami.common.BaseEntityUUID;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;

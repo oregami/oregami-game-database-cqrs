@@ -1,11 +1,11 @@
 package org.oregami.gamingEnvironments.application;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.oregami.game.GameEntryType;
-import org.oregami.game.ReleaseGroupReason;
-import org.oregami.game.command.AddReleaseGroupCommand;
-import org.oregami.game.command.CreateGameCommand;
+import org.oregami.common.types.Language;
+import org.oregami.common.types.Script;
+import org.oregami.gamingEnvironments.command.AddTitleCommand;
 import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
+import org.oregami.regions.RegionId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +26,11 @@ public class GamingEnvironmentApplicationService {
 
     public CompletableFuture<Object> createNewGamingEnvironment(String id, String workingTitle) {
         return commandGateway.send(new CreateGamingEnvironmentCommand(id, workingTitle));
+    }
+
+
+    public CompletableFuture<Object> addTitle(String gamingEnvironmentId, RegionId regionId, String title, String language, String script) {
+        return commandGateway.send(new AddTitleCommand(gamingEnvironmentId, regionId, title, Language.valueOf(language), Script.valueOf(script)));
     }
 
 

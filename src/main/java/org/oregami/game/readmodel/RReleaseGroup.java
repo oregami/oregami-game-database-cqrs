@@ -1,9 +1,10 @@
 package org.oregami.game.readmodel;
 
 import lombok.NoArgsConstructor;
-import org.oregami.basic.BaseEntityUUID;
+import org.oregami.common.BaseEntityUUID;
 import org.oregami.game.ReleaseGroupReason;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 
 /**
@@ -13,6 +14,7 @@ import javax.persistence.Entity;
 @Entity
 public class RReleaseGroup extends BaseEntityUUID {
 
+    @Column
     private ReleaseGroupReason releaseGroupReason;
 
     public RReleaseGroup(String id, ReleaseGroupReason releaseGroupReason) {

@@ -13,8 +13,10 @@ import org.oregami.game.command.AddReleaseGroupCommand;
 import org.oregami.game.command.CreateGameCommand;
 import org.oregami.game.event.GameCreatedEvent;
 import org.oregami.game.event.ReleaseGroupAddedEvent;
+import org.oregami.gamingEnvironments.command.AddTitleCommand;
 import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
+import org.oregami.gamingEnvironments.event.TitleAddedEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,16 +35,29 @@ public class GamingEnvironment {
 
     String workingTitle;
 
+    @AggregateMember
+    Set<Title> gametitles = new HashSet<>();
+
     @CommandHandler
     public GamingEnvironment(CreateGamingEnvironmentCommand command) {
         AggregateLifecycle.apply(new GamingEnvironmentCreatedEvent(command.getId(), command.getWorkingTitle()));
     }
 
     @EventSourcingHandler
-    public void in(GameCreatedEvent event) {
-        this.id = event.getGameId();
+    public void in(GamingEnvironmentCreatedEvent event) {
+        this.id = event.getId();
     }
 
+    @CommandHandler
+    public String on(AddTitleCommand command) {
+        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getRegionId(), command.getTitle(), command.getLanguage(), command.getScript()));
+        return command.getGamingEnvironmentId();
+    }
 
+    @EventSourcingHandler
+    public void in(TitleAddedEvent event) {
+        Title t = new Title(event.getGamingEnvironmentId(), event.getRegionId(), event.getTitle(), event.getLanguage(), event.getScript());
+        this.gametitles.add(t);
+    }
 
 }

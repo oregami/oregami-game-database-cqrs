@@ -13,8 +13,21 @@
 
     <div th:each="gamingEnvironment : ${list}">
         <h2 class="ui top attached header" th:text="${gamingEnvironment.workingTitle}"/>
+
+        <div th:if="${gamingEnvironment.gametitles.size()>0}" class="ui attached segment">
+            <div class="ui bulleted list">
+                <div class="item" th:each="title : ${gamingEnvironment.gametitles}">
+                    <span th:text="${title.title}"/>
+                    <span th:if="${title.regionId!=null}">
+                        (<span th:text="${title.regionId!=null ? title.regionId.value : '-'}"/>)
+                    </span>
+                </div>
+            </div>
+        </div>
+
         <div class="ui attached segment">
-            <a th:href="${'/gamingEnvironments/' + gamingEnvironment.id}" th:text="#{gamingEnvironment.viewGamingEnvironment}"></a><br/>
+            <a th:href="${'/gamingEnvironments/' + gamingEnvironment.id}"
+               th:text="#{gamingEnvironment.viewGamingEnvironment}"></a><br/>
         </div>
     </div>
 

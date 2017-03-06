@@ -10,10 +10,10 @@
 
 <nav th:replace="navigation :: navigation(URL_GAMINGENVIRONMENTS)"></nav>
 
-<div>
+<div class="ui segment">
 
     <form class="ui form" method="POST" th:attr="action=${'/gamingEnvironments/' + gamingEnvironmentId + '/addTitle'}">
-        <h4 class="ui dividing header">Add Title</h4>
+        <h2 class="ui dividing header">Add Title</h2>
 
         <div class="inline field">
             <label>Title:</label>

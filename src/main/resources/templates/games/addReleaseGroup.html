@@ -10,10 +10,10 @@
 
 <nav th:replace="navigation :: navigation(URL_GAMES)"></nav>
 
-<div>
+<div class="ui segment">
 
     <form class="ui form" method="POST" th:attr="action=${'/games/' + gameId + '/addReleaseGroup'}">
-        <h4 class="ui dividing header">Add Release Group</h4>
+        <h2 class="ui dividing header">Add Release Group</h2>
 
         <div class="inline field">
             <label>Release GroupReason</label>

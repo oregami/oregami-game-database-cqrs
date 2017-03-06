@@ -10,10 +10,10 @@
 
 <nav th:replace="navigation :: navigation(URL_GAMES)"></nav>
 
-<div>
+<div class="ui segment">
 
     <form class="ui form" method="POST" th:attr="action=@{/games/createGame/}">
-        <h4 class="ui dividing header">Create new game</h4>
+        <h2 class="ui dividing header">Create new game</h2>
 
         <div class="inline field">
             <label>Working title:</label>

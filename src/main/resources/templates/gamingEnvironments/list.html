@@ -12,7 +12,12 @@
 <div class="ui segment">
 
     <div th:each="gamingEnvironment : ${list}">
-        <h2 class="ui top attached header" th:text="${gamingEnvironment.workingTitle}"/>
+
+            <h2 class="ui top attached header">
+                <a th:href="${'/gamingEnvironments/' + gamingEnvironment.id}">
+                    <span th:text="${gamingEnvironment.workingTitle}"/><i class="angle double right icon"></i>
+                </a>
+            </h2>
 
         <div th:if="${gamingEnvironment.gametitles.size()>0}" class="ui attached segment">
             <div class="ui bulleted list">
@@ -25,10 +30,12 @@
             </div>
         </div>
 
+        <!--
         <div class="ui attached segment">
             <a th:href="${'/gamingEnvironments/' + gamingEnvironment.id}"
                th:text="#{gamingEnvironment.viewGamingEnvironment}"></a><br/>
         </div>
+        -->
     </div>
 
     <div class="ui grey inverted top attached header" th:text="#{common.actions}"/>

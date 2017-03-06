@@ -113,13 +113,14 @@ ul.navigation li:hover {
 }
 a {
   text-decoration: none;
-  color: blue;
+  color: #226622;
 }
 a:visited {
   text-decoration: none;
 }
 a:hover {
   text-decoration: none;
+    color: #228822;
 }
 div.footer {
   display: block;

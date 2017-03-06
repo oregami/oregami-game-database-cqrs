@@ -14,10 +14,16 @@
 <div class="ui segment">
 
     <div th:each="game : ${list}">
-        <h2 class="ui top attached header" th:text="${game.workingTitle}"/>
+        <h2 class="ui top attached header">
+            <a th:href="${'/games/' + game.id}"><span th:text="${game.workingTitle}"></span><i class="angle double right icon"></i></a>
+        </h2>
+
         <div class="ui attached segment">
-            game.gameEntryType = <span th:text="${game.gameEntryType}"/><br/>
+            game.gameEntryType = <span th:text="${game.gameEntryType}"/>
+            <!--
+            <br/>
             <a th:href="${'/games/' + game.id}" th:text="#{games.viewGame}"></a><br/>
+            -->
         </div>
     </div>
 

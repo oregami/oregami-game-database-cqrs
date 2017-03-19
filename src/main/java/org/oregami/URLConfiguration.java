@@ -17,6 +17,7 @@ public class URLConfiguration {
         ,GAMINGENVIRONMENTS("/gamingEnvironments")
         ,GAMES("/games")
 		,HOME("/")
+        ,TRANSLITERATEDSTRINGS("/transliteratedStrings")
 		;
 		public final String value;
 		URLS(String value) {

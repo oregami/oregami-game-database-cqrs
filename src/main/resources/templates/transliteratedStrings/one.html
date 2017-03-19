@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Gaming Environment - One'"></head>
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_TRANSLITERATEDSTRINGS)"></nav>
+
+<div class="ui segment">
+    <div class="ui breadcrumb">
+        <a class="section" href="/">Home</a>
+        <div class="divider"> / </div>
+        <a class="section" href="./">TransliteratedStrings</a>
+    </div>
+</div>
+
+<div class="ui segment">
+
+    <h2 class="ui top attached header" th:text="${transliteratedString.text}"/>
+    <div class="ui attached segment">
+        <div><label>id:</label> <span th:text="${transliteratedString.id}"/></div>
+        <div><label>text:</label> <span th:text="${transliteratedString.text}"/></div>
+        <div><label>language:</label> <span th:text="${transliteratedString.language}"/></div>
+        <div><label>script:</label> <span th:text="${transliteratedString.script}"/></div>
+    </div>
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

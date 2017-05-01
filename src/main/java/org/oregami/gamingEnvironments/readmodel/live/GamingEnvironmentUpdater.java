@@ -31,7 +31,7 @@ public class GamingEnvironmentUpdater {
     @EventHandler
     public void on(TitleAddedEvent event) {
         GamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
-        Title t = new Title(UUID.randomUUID().toString(), event.getRegionId(), event.getTitle(), event.getLanguage(), event.getScript());
+        Title t = new Title(UUID.randomUUID().toString(), event.getRegionId(), event.getTransliteratedStringId());
         g.addTitle(t);
         repository.save(g);
     }

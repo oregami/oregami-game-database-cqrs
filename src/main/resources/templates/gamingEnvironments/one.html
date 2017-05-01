@@ -24,19 +24,11 @@
         <div class="ui attached segment" th:each="title : ${gamingEnvironment.gametitles}">
             <div>
                 <label>title:</label>
-                <span th:text="${title.title}"/>
+                <span th:text="${title.id}"/>
             </div>
             <div>
                 <label>region:</label>
                 <span th:text="${title.regionId!=null ? title.regionId.value : '-'}"/>
-            </div>
-            <div>
-                <label>language:</label>
-                <span th:text="${title.language}"/>
-            </div>
-            <div>
-                <label>script:</label>
-                <span th:text="${title.script}"/>
             </div>
         </div>
     </th:block>

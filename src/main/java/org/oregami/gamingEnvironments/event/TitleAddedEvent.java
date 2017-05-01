@@ -13,16 +13,12 @@ public class TitleAddedEvent {
 
     private String gamingEnvironmentId;
     private RegionId regionId;
-    private String title;
-    private Language language;
-    private Script script;
+    private String transliteratedStringId;
 
-    public TitleAddedEvent(String gamingEnvironmentId, RegionId regionId, String title, Language language, Script script) {
+    public TitleAddedEvent(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId) {
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.regionId = regionId;
-        this.title = title;
-        this.language = language;
-        this.script = script;
+        this.transliteratedStringId = transliteratedStringId;
     }
 
 }

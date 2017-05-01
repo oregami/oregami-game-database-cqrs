@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='TransliteratedStrings - search'"></head>
+
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_TRANSLITERATEDSTRINGS)"></nav>
+
+<div class="ui segment">
+
+    <label>You searched for:</label>:
+    <div th:text="${searchTitle}"/>
+
+    <hr/>
+
+
+    found:<span th:text="${transliteratedStrings.size()}"/>
+
+    <div th:if="${transliteratedStrings.size()>0}">
+        <br/>
+
+        <form class="ui form" method="GET" th:attr="action=${backUrl}">
+
+            <div class="grouped fields">
+                <div th:each="ts : ${transliteratedStrings}">
+                    <input type="radio" name="titleId" th:value="${ts.id}"/>
+                    <span th:text="${ts.text}"/>
+                    <span th:text="${'id = ' + ts.id}" style="color:#cccccc;"/>
+                </div>
+            </div>
+
+            <button class="ui button" type="submit" th:text="${'continue with selected title'}"></button>
+        </form>
+    </div>
+
+
+    <hr/>
+    <br/>
+
+    <form class="ui form" method="POST" th:attr="action=@{/transliteratedStrings/create/}">
+
+        <input type="hidden" name="backUrl" th:value="${backUrl}"/>
+
+        <div class="fields">
+            <div class="field">
+                <label>New Title:</label>
+                <input type="text" name="text" th:value="${searchTitle}"/>
+            </div>
+            <div class="field">
+                <label th:text="#{transliteratedStrings.language} + ':'"></label>
+                <select name="language">
+                    <option>ENGLISH</option>
+                    <option>GERMAN</option>
+                    <option>ARABIC</option>
+                    <option>BENGALI</option>
+                    <option>CANTONESE</option>
+                    <option>CHINESE</option>
+                    <option>DUTCH</option>
+                    <option>FRENCH</option>
+                    <option>GREEK</option>
+                    <option>HINDI</option>
+                    <option>ITALIAN</option>
+                    <option>JAPANESE</option>
+                    <option>KOREAN</option>
+                    <option>MANDARIN</option>
+                    <option>PERSIAN</option>
+                    <option>POLISH</option>
+                    <option>PORTUGUESE</option>
+                    <option>PUNJABI</option>
+                    <option>RUSSIAN</option>
+                    <option>SPANISH</option>
+                    <option>TURKISH</option>
+                </select>
+            </div>
+            <div class="field">
+                <label th:text="#{transliteratedStrings.script} + ':'"></label>
+                <select name="script">
+                    <option>LATIN</option>
+                    <option>ARABIC</option>
+                    <option>CHINESE</option>
+                    <option>CYRILLIC</option>
+                    <option>GREEK</option>
+                    <option>HEBREW</option>
+                    <option>JAPANESE</option>
+                    <option>KOREAN</option>
+                </select>
+            </div>
+        </div>
+
+
+        <button class="ui button" type="submit" th:text="${'create new title'}"></button>
+    </form>
+
+    <hr/>
+
+</div>
+
+<div th:replace="footer :: copy"></div>
+
+
+</body>
+</html>

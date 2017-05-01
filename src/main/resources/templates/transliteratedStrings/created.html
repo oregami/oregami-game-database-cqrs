@@ -12,7 +12,13 @@
 
 <div class="ui segment">
 
+    <div th:if="${backUrl!=''}">
+        <a th:href="${backUrl + '?titleId=' + transliteratedStringId}" th:text="${'continue'}"></a>
+    </div>
+
+    <div th:if="${backUrl==''}">
         <a th:href="@{/transliteratedStrings/} + ${transliteratedStringId}" th:text="#{transliteratedStrings.showTransliteratedString}"></a>
+    </div>
 </div>
 
 

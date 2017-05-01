@@ -21,16 +21,12 @@ public class Title {
     private String titleId;
 
     private RegionId regionId;
-    private String title;
-    private Language language;
-    private Script script;
+    private String transliteratedStringId;
 
-    public Title(String titleId, RegionId regionId, String title, Language language, Script script) {
+    public Title(String titleId, RegionId regionId, String transliteratedStringId) {
         this.titleId = titleId;
         this.regionId = regionId;
-        this.title = title;
-        this.language = language;
-        this.script = script;
+        this.transliteratedStringId = transliteratedStringId;
     }
 
 }

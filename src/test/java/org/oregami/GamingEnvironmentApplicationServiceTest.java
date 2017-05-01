@@ -71,7 +71,7 @@ public class GamingEnvironmentApplicationServiceTest {
         Assert.assertThat(resultId.get(), Matchers.equalTo(gamingEnvironmentId));
 
         RegionId regionId = new RegionId(regionRepository.findOne("NORTH_AMERICA").getId());
-        CompletableFuture<Object> resultId2 = gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, regionId, "Super Nintendo", "ENGLISH", "LATIN");
+        CompletableFuture<Object> resultId2 = gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, regionId, "id1");
 
         Assert.assertThat(gamingEnvironmentRepository.count(), Matchers.is(count+1));
 

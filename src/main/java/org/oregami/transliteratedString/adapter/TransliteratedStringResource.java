@@ -37,10 +37,12 @@ public class TransliteratedStringResource {
             @RequestParam String text,
             @RequestParam String language,
             @RequestParam String script,
+            @RequestParam(value = "backUrl", defaultValue = "") String backUrl,
             Model model) {
         String id = UUID.randomUUID().toString();
         CompletableFuture<Object> completableFuture = transliteratedStringApplicationService.createNewTransliteratedString(id, text, language, script);
         model.addAttribute("transliteratedStringId", id);
+        model.addAttribute("backUrl", backUrl);
         return "transliteratedStrings/created";
     }
 
@@ -62,6 +64,20 @@ public class TransliteratedStringResource {
         return "transliteratedStrings/create";
     }
 
+
+    @GetMapping(value = "/search")
+    public String search(
+            @RequestParam String searchTitle,
+            @RequestParam String backUrl,
+            Model model) {
+        model.addAttribute("searchTitle", searchTitle);
+        model.addAttribute("backUrl", backUrl);
+
+        List<TransliteratedString> transliteratedStrings = transliteratedStringRepository.findByTextIgnoreCaseContaining(searchTitle);
+        model.addAttribute("transliteratedStrings", transliteratedStrings);
+
+        return "transliteratedStrings/search";
+    }
 
 
 

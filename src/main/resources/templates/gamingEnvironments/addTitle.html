@@ -12,66 +12,43 @@
 
 <div class="ui segment">
 
-    <form class="ui form" method="POST" th:attr="action=${'/gamingEnvironments/' + gamingEnvironmentId + '/addTitle'}">
-        <h2 class="ui dividing header">Add Title</h2>
+    <div id="step1" th:if="${titleId==''}">
+        <h4>step1</h4>
+        <form class="ui form" method="GET" th:attr="action=${'/transliteratedStrings/search'}">
+            <div class="inline field">
+                <label>Search:</label>
+                <input name="searchTitle" type="text"/>
+                <span th:text="${titleId}"/>
+            </div>
+            <button class="ui button" type="submit">find title</button>
+            <input type="hidden" name="backUrl" th:value="${'/gamingEnvironments/' + gamingEnvironmentId + '/addTitle'}"/>
+        </form>
+    </div>
 
-        <div class="inline field">
-            <label>Title:</label>
-            <input name="title" type="text"/>
-        </div>
-        <div class="inline field">
-            <label>Region</label>
-            <select name="regionId">
-                <option value="NORTH_AMERICA">NORTH_AMERICA</option>
-                <option value="EUROPE">EUROPE</option>
-                <option value="UNITED_STATES">UNITED_STATES</option>
-                <option value="UNITED_KINGDOM">UNITED_KINGDOM</option>
-                <option value="FRANCE">FRANCE</option>
-                <option value="JAPAN">JAPAN</option>
-                <option value="CHINA">CHINA</option>
-            </select>
-        </div>
-        <div class="inline field">
-            <label>Language</label>
-            <select name="language">
-                <option>ENGLISH</option>
-                <option>GERMAN</option>
-                <option>ARABIC</option>
-                <option>BENGALI</option>
-                <option>CANTONESE</option>
-                <option>CHINESE</option>
-                <option>DUTCH</option>
-                <option>FRENCH</option>
-                <option>GREEK</option>
-                <option>HINDI</option>
-                <option>ITALIAN</option>
-                <option>JAPANESE</option>
-                <option>KOREAN</option>
-                <option>MANDARIN</option>
-                <option>PERSIAN</option>
-                <option>POLISH</option>
-                <option>PORTUGUESE</option>
-                <option>PUNJABI</option>
-                <option>RUSSIAN</option>
-                <option>SPANISH</option>
-                <option>TURKISH</option>
-            </select>
-        </div>
-        <div class="inline field">
-            <label>Script</label>
-            <select name="script">
-                <option>LATIN</option>
-                <option>ARABIC</option>
-                <option>CHINESE</option>
-                <option>CYRILLIC</option>
-                <option>GREEK</option>
-                <option>HEBREW</option>
-                <option>JAPANESE</option>
-                <option>KOREAN</option>
-            </select>
-        </div>
-        <button class="ui button" type="submit">add title</button>
-    </form>
+
+    <div id="step2" th:if="${titleId!=''}">
+        <h4>step2</h4>
+        <form class="ui form" method="POST" th:attr="action=${'/gamingEnvironments/' + gamingEnvironmentId + '/addTitle'}">
+            <h2 class="ui dividing header">Add Title</h2>
+            <div class="inline field">
+                <label>Title-ID:</label>
+                <input name="titleId" type="text" th:value="${titleId}"/>
+            </div>
+            <div class="inline field">
+                <label>Region</label>
+                <select name="regionId">
+                    <option value="NORTH_AMERICA">NORTH_AMERICA</option>
+                    <option value="EUROPE">EUROPE</option>
+                    <option value="UNITED_STATES">UNITED_STATES</option>
+                    <option value="UNITED_KINGDOM">UNITED_KINGDOM</option>
+                    <option value="FRANCE">FRANCE</option>
+                    <option value="JAPAN">JAPAN</option>
+                    <option value="CHINA">CHINA</option>
+                </select>
+            </div>
+            <button class="ui button" type="submit">add title</button>
+        </form>
+    </div>
 
 </div>
 

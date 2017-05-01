@@ -1,0 +1,36 @@
+@startuml
+[*] --> Start_AddTitle: GET gamingEnvironments/{id}/addTitle
+Start_AddTitle : - URL = gamingEnvironments/{id}/addTitle
+Start_AddTitle: - Form input: titleSearch
+
+Start_AddTitle -down-> SearchForTitle: GET /transliteratedStrings/search
+SearchForTitle: - URL = /transliteratedStrings/search
+SearchForTitle: - params: searchTitle, nextURL
+SearchForTitle: - List all found titles
+SearchForTitle: - select one title and click "next"
+SearchForTitle: - or click "create new" to create new title
+
+SearchForTitle -down-> TitleSelected: GET
+TitleSelected: - URL = gamingEnvironments/{id}/addTitle
+TitleSelected: - params: titleId, titleText (informal)
+TitleSelected: - Form input: region [combobox]
+TitleSelected: - Form input: titleType [combobox]
+
+SearchForTitle -right-> CreateNewTitle: GET /transliteratedStrings/create
+CreateNewTitle: - URL = /transliteratedStrings/create
+CreateNewTitle: - params: nextURL
+CreateNewTitle: - Form input: text of title, language, script
+CreateNewTitle: - Form input: language [combobox]
+CreateNewTitle: - Form input: script [combobox]
+
+CreateNewTitle -down-> NewTitleCreated: POST /transliteratedStrings/create
+NewTitleCreated: URL = /titles/create
+NewTitleCreated:
+
+NewTitleCreated -left-> TitleSelected: GET gamingEnvironments/{id}/addTitle
+
+
+TitleSelected -down-> Done
+Done: - show result of command
+Done: - title has been added to GemingEnvironment
+@enduml

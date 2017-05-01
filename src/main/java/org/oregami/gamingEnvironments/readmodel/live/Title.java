@@ -27,19 +27,11 @@ public class Title extends BaseEntityUUID {
     private RegionId regionId;
 
     @Column
-    private String title;
+    private String transliteratedStringId;
 
-    @Column
-    private Language language;
-
-    @Column
-    private Script script;
-
-    public Title(String id, RegionId regionId, String title, Language language, Script script) {
+    public Title(String id, RegionId regionId, String transliteratedStringId) {
         super(id);
         this.regionId = regionId;
-        this.title = title;
-        this.language = language;
-        this.script = script;
+        this.transliteratedStringId = transliteratedStringId;
     }
 }

@@ -159,6 +159,9 @@ a {
   nav.navigation {
     padding-left: 20px;
   }
+    ul.navigation li:first-child {
+        display: inline;
+    }
 }
 /*
 =============================

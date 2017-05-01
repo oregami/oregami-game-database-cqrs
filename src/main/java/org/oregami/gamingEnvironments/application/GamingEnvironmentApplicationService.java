@@ -29,8 +29,8 @@ public class GamingEnvironmentApplicationService {
     }
 
 
-    public CompletableFuture<Object> addTitle(String gamingEnvironmentId, RegionId regionId, String title, String language, String script) {
-        return commandGateway.send(new AddTitleCommand(gamingEnvironmentId, regionId, title, Language.valueOf(language), Script.valueOf(script)));
+    public CompletableFuture<Object> addTitle(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId) {
+        return commandGateway.send(new AddTitleCommand(gamingEnvironmentId, regionId, transliteratedStringId));
     }
 
 

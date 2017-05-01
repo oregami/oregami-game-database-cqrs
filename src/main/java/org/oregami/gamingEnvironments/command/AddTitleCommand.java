@@ -16,16 +16,12 @@ public class AddTitleCommand {
     private String gamingEnvironmentId;
 
     private RegionId regionId;
-    private String title;
-    private Language language;
-    private Script script;
+    private String transliteratedStringId;
 
-    public AddTitleCommand(String gamingEnvironmentId, RegionId regionId, String title, Language language, Script script) {
+    public AddTitleCommand(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId) {
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.regionId = regionId;
-        this.title = title;
-        this.language = language;
-        this.script = script;
+        this.transliteratedStringId = transliteratedStringId;
     }
 
 }

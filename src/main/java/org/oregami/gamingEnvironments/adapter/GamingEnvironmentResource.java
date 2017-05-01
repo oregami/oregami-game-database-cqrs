@@ -43,12 +43,10 @@ public class GamingEnvironmentResource {
 
     @PostMapping(value = "/{gamingEnvironmentId}/addTitle")
     public String addTitle(@PathVariable String gamingEnvironmentId
-            , @RequestParam String title
+            , @RequestParam String titleId
             , @RequestParam String regionId
-            , @RequestParam String language
-            , @RequestParam String script
             , Model model) {
-        gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, new RegionId(regionId), title, language, script);
+        gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, new RegionId(regionId), titleId);
         model.addAttribute("gamingEnvironmentId", gamingEnvironmentId);
         return "gamingEnvironments/update_done";
     }
@@ -73,8 +71,12 @@ public class GamingEnvironmentResource {
     }
 
     @GetMapping(value = "/{gamingEnvironmentId}/addTitle")
-    public String addReleaseGroup(@PathVariable String gamingEnvironmentId, Model model) {
+    public String addTitleForm(
+            @PathVariable String gamingEnvironmentId,
+            @RequestParam(value = "titleId", defaultValue = "") String titleId,
+            Model model) {
         model.addAttribute("gamingEnvironmentId", gamingEnvironmentId);
+        model.addAttribute("titleId", titleId);
         return "gamingEnvironments/addTitle";
     }
 

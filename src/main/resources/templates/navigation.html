@@ -14,8 +14,11 @@
         <!--
         <li th:class="${activeUrl}==URL_PUBLICATIONFRANCHISE ? 'active' : ''"><a th:href="${URL_PUBLICATIONFRANCHISE}" th:text="#{publicationFranchise}"></a></li>
         -->
+
         <li th:class="${activeUrl}==URL_GAMES ? 'active' : ''"><a th:href="${URL_GAMES}" th:text="#{games}"></a></li>
         <li th:class="${activeUrl}==URL_GAMINGENVIRONMENTS ? 'active' : ''"><a th:href="${URL_GAMINGENVIRONMENTS}" th:text="#{gamingEnvironments}"></a></li>
+        <li th:class="${activeUrl}==URL_TRANSLITERATEDSTRINGS ? 'active' : ''"><a th:href="${URL_TRANSLITERATEDSTRINGS}" th:text="#{titles}"></a></li>
+
     </ul>
     <div class="language">
         <a th:href="@{${#httpServletRequest.requestURI + '?lang=en'}}" title="en"><i class="gb flag"></i></a>

@@ -24,7 +24,11 @@
         <div class="ui attached segment" th:each="title : ${gamingEnvironment.gametitles}">
             <div>
                 <label>title:</label>
-                <span th:text="${title.id}"/>
+                <span th:text="${title.id}"></span>
+            </div>
+            <div>
+                <label>transliteratedString:</label>
+                <a th:href="${'/transliteratedStrings/' + title.transliteratedStringId}" th:text="${title.transliteratedStringId}"></a>
             </div>
             <div>
                 <label>region:</label>

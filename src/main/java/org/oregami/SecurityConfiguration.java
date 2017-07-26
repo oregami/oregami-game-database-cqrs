@@ -22,6 +22,9 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
+
+    public static final String USER_ROLE = "user";
+
     /**
      * Registers the KeycloakAuthenticationProvider with the authentication manager.
      */
@@ -48,7 +51,6 @@ class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        String userRole = "user";
 
         super.configure(http);
         http.csrf().disable()
@@ -59,21 +61,21 @@ class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
 
                 //.antMatchers(HttpMethod.GET, "/").authenticated()
 
-                .antMatchers(HttpMethod.GET, "/login").hasRole(userRole)
+                .antMatchers(HttpMethod.GET, "/login").fullyAuthenticated()
 
                 //.antMatchers(HttpMethod.GET, "/**/games/createGame").hasRole(userRole)
-                .antMatchers(HttpMethod.POST, "/**/games/createGame").hasRole(userRole)
+                .antMatchers(HttpMethod.POST, "/**/games/createGame").hasRole(USER_ROLE)
 
 
                 //.antMatchers(HttpMethod.GET, "/**/gamingEnvironments/create").hasRole(userRole)
-                .antMatchers(HttpMethod.POST, "/**/gamingEnvironments/create").hasRole(userRole)
+                .antMatchers(HttpMethod.POST, "/**/gamingEnvironments/create").hasRole(USER_ROLE)
 
 
                 //.antMatchers(HttpMethod.GET, "/**/transliteratedStrings/create").hasRole(userRole)
-                .antMatchers(HttpMethod.POST, "/**/transliteratedStrings/create").hasRole(userRole)
+                .antMatchers(HttpMethod.POST, "/**/transliteratedStrings/create").hasRole(USER_ROLE)
 
                 //.antMatchers(HttpMethod.GET, "/**/addTitle").hasRole(userRole)
-                .antMatchers(HttpMethod.POST, "/**/addTitle").hasRole(userRole)
+                .antMatchers(HttpMethod.POST, "/**/addTitle").hasRole(USER_ROLE)
                 .anyRequest().permitAll();
     }
 }

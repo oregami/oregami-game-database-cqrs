@@ -12,8 +12,6 @@ import org.oregami.game.command.AddReleaseGroupCommand;
 import org.oregami.game.command.CreateGameCommand;
 import org.oregami.game.event.GameCreatedEvent;
 import org.oregami.game.event.ReleaseGroupAddedEvent;
-import org.oregami.gamingEnvironments.command.AddTitleCommand;
-import org.oregami.gamingEnvironments.event.TitleAddedEvent;
 
 import java.util.HashSet;
 import java.util.Set;

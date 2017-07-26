@@ -1,25 +1,31 @@
 package org.oregami;
 
-import org.axonframework.eventhandling.EventBus;
-import org.axonframework.eventhandling.SimpleEventBus;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
-import org.axonframework.spring.config.EnableAxon;
+import org.keycloak.KeycloakPrincipal;
+import org.keycloak.representations.AccessToken;
 import org.oregami.regions.application.RegionApplicationService;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.context.support.ResourceBundleMessageSource;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @SpringBootApplication
@@ -82,5 +88,18 @@ public class OregamiApplication {
         source.setDefaultEncoding("UTF-8");
         return source;
     }
+
+    @Bean
+    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST,
+            proxyMode = ScopedProxyMode.TARGET_CLASS)
+    public AccessToken getAccessToken() {
+        HttpServletRequest request =
+                ((ServletRequestAttributes) RequestContextHolder
+                        .currentRequestAttributes()).getRequest();
+        return ((KeycloakPrincipal) request.getUserPrincipal())
+                .getKeycloakSecurityContext().getToken();
+    }
+
+
 
 }

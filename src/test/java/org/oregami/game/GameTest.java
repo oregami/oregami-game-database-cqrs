@@ -26,9 +26,11 @@ public class GameTest {
     @Test
     public void createGame() throws Exception {
         String id = UUID.randomUUID().toString();
+        CreateGameCommand command = new CreateGameCommand(id, GameEntryType.GAME, "t1");
+        GameCreatedEvent event = new GameCreatedEvent(id, GameEntryType.GAME, "t1");
         fixture.givenNoPriorActivity()
-                .when(new CreateGameCommand(id, GameEntryType.GAME, "t1"))
-                .expectEvents(new GameCreatedEvent(id, GameEntryType.GAME, "t1"))
+                .when(command)
+                .expectEvents(event)
         ;
 
     }

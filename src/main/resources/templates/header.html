@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 
 <!--
 @mobileBreakpoint            : 320px;	mobile
@@ -32,6 +34,7 @@
     <meta property="og:type" content="article"/>
     <meta property="og:title" th:content="${title} + ' - Oregami.org'"/>
     <meta property="og:description" th:content="${description ?: 'Oregami.org'}"/>
+
 
 </head>
 

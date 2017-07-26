@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+>
 
 <head th:include="header :: header" th:with="title='TransliteratedStrings - create'"></head>
 
@@ -10,7 +12,9 @@
 
 <nav th:replace="navigation :: navigation(URL_TRANSLITERATEDSTRINGS)"></nav>
 
-<div class="ui segment">
+<div th:replace="loginfirst :: copy"></div>
+
+<div class="ui segment" sec:authorize="isAuthenticated()">
 
     <form class="ui form" method="POST" th:attr="action=@{/transliteratedStrings/create/}">
 

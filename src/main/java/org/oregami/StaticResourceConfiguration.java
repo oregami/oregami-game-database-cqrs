@@ -1,13 +1,14 @@
 package org.oregami;
 
+import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -15,6 +16,7 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.security.Principal;
 
 @Configuration
 @Component
@@ -32,6 +34,12 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
         super.addResourceHandlers(registry);
 
 
+    }
+
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**");
     }
 
     @Override
@@ -52,6 +60,18 @@ public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
                     if (modelAndView != null) {
                         modelAndView.addObject("URL_" + url.name(), url.value);
                     }
+                }
+                KeycloakAuthenticationToken userPrincipal = (KeycloakAuthenticationToken) request.getUserPrincipal();
+                if (userPrincipal !=null && userPrincipal instanceof KeycloakAuthenticationToken) {
+
+                    modelAndView.addObject("loggedIn", true);
+                    modelAndView.addObject("userId", SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+                    if (userPrincipal!=null) {
+                        modelAndView.addObject("userName", userPrincipal.getAccount().getKeycloakSecurityContext().getIdToken().getPreferredUsername());
+                    }
+
+                } else {
+                    modelAndView.addObject("loggedIn", false);
                 }
 
                 System.out.println("postHandle aufgerufen!");

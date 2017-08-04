@@ -5,7 +5,9 @@ import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -22,6 +24,9 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
 class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
+
+    @Value("${keycloak.auth-server-url}")
+    private String keycloakUrl;
 
     public static final String USER_ROLE = "user";
 
@@ -51,6 +56,9 @@ class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+
+        org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
+        logger.info("keycloakUrl: " + keycloakUrl);
 
         super.configure(http);
         http.csrf().disable()

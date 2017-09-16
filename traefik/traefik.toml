@@ -1,0 +1,33 @@
+# traefik.toml
+logLevel = "DEBUG"
+defaultEntryPoints = ["http"]
+[entryPoints]
+  [entryPoints.http]
+  address = ":7001"
+#[file]
+
+[web]
+address = ":7777"
+
+[file]
+# rules
+[backends]
+  [backends.backendOregami]
+    [backends.backendOregami.servers.server1]
+    url = "http://localhost:8080"
+    weight = 1
+  [backends.backendKeycloak]
+    [backends.backendKeycloak.servers.server1]
+    url = "http://localhost:8083"
+    weight = 1
+[frontends]
+  [frontends.frontendOregami]
+  passHostHeader = true
+  backend = "backendOregami"
+    [frontends.frontendOregami.routes.test_1]
+    rule = "Host:oregami.localhost"
+  [frontends.frontendKeycloak]
+  passHostHeader = true
+  backend = "backendKeycloak"
+    [frontends.frontendKeycloak.routes.test_2]
+    rule = "Host:keycloak.localhost"

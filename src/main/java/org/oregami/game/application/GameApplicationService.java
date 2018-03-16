@@ -3,8 +3,8 @@ package org.oregami.game.application;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.oregami.game.command.AddReleaseGroupCommand;
 import org.oregami.game.command.CreateGameCommand;
-import org.oregami.game.GameEntryType;
-import org.oregami.game.ReleaseGroupReason;
+import org.oregami.game.model.GameEntryType;
+import org.oregami.game.model.ReleaseGroupReason;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

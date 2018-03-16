@@ -14,11 +14,13 @@ public class TitleAddedEvent {
     private String gamingEnvironmentId;
     private RegionId regionId;
     private String transliteratedStringId;
+    private String text;
 
-    public TitleAddedEvent(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId) {
+    public TitleAddedEvent(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId, String text) {
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.regionId = regionId;
         this.transliteratedStringId = transliteratedStringId;
+        this.text = text;
     }
 
 }

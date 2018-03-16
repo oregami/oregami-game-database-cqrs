@@ -1,8 +1,5 @@
 package org.oregami.gamingEnvironments.command;
 
-import org.oregami.transliteratedString.Language;
-import org.oregami.transliteratedString.Script;
-
 /**
  * Created by sebastian on 24.02.17.
  */

@@ -1,11 +1,7 @@
 package org.oregami.transliteratedString.adapter;
 
-import org.apache.commons.lang3.builder.RecursiveToStringStyle;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.axonframework.eventsourcing.DomainEventMessage;
-import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.oregami.transliteratedString.TransliteratedStringRepository;
+import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.application.TransliteratedStringApplicationService;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;

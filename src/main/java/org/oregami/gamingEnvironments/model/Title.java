@@ -1,12 +1,9 @@
-package org.oregami.gamingEnvironments;
+package org.oregami.gamingEnvironments.model;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.model.EntityId;
-import org.oregami.common.types.Language;
-import org.oregami.common.types.Script;
 import org.oregami.regions.RegionId;
 
 /**

@@ -1,6 +1,6 @@
 package org.oregami.game.command;
 
-import org.oregami.game.GameEntryType;
+import org.oregami.game.model.GameEntryType;
 
 /**
  * Created by sebastian on 03.11.16.

@@ -3,8 +3,7 @@ package org.oregami.game.event;
 import lombok.Getter;
 import org.apache.commons.lang3.builder.RecursiveToStringStyle;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
-import org.oregami.game.GameEntryType;
+import org.oregami.game.model.GameEntryType;
 
 
 /**

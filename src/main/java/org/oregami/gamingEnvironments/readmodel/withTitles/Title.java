@@ -1,12 +1,8 @@
-package org.oregami.gamingEnvironments.readmodel.live;
+package org.oregami.gamingEnvironments.readmodel.withTitles;
 
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.axonframework.commandhandling.model.EntityId;
 import org.oregami.common.BaseEntityUUID;
-import org.oregami.common.types.Language;
-import org.oregami.common.types.Script;
 import org.oregami.regions.RegionId;
 
 import javax.persistence.Column;
@@ -29,9 +25,13 @@ public class Title extends BaseEntityUUID {
     @Column
     private String transliteratedStringId;
 
-    public Title(String id, RegionId regionId, String transliteratedStringId) {
+    @Column
+    private String transliteratedStringText;
+
+    public Title(String id, RegionId regionId, String transliteratedStringId, String transliteratedStringText) {
         super(id);
         this.regionId = regionId;
         this.transliteratedStringId = transliteratedStringId;
+        this.transliteratedStringText = transliteratedStringText;
     }
 }

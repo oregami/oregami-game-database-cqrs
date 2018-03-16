@@ -1,16 +1,20 @@
 package org.oregami;
 
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.spring.config.AxonConfiguration;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.oregami.game.GameEntryType;
-import org.oregami.game.ReleaseGroupReason;
+import org.oregami.game.model.GameEntryType;
+import org.oregami.game.model.ReleaseGroupReason;
 import org.oregami.game.application.GameApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;

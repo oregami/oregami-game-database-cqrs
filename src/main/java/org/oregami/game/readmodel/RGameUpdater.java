@@ -1,8 +1,7 @@
 package org.oregami.game.readmodel;
 
 import org.axonframework.eventhandling.EventHandler;
-import org.oregami.game.RGameRepository;
-import org.oregami.game.ReleaseGroup;
+import org.oregami.game.model.RGameRepository;
 import org.oregami.game.event.GameCreatedEvent;
 import org.oregami.game.event.ReleaseGroupAddedEvent;
 import org.springframework.stereotype.Component;

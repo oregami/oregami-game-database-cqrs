@@ -1,4 +1,4 @@
-package org.oregami.gamingEnvironments;
+package org.oregami.gamingEnvironments.model;
 
 public enum TitleType {
 

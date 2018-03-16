@@ -3,14 +3,12 @@ package org.oregami.transliteratedString.readmodel.live;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.oregami.common.BaseEntityUUID;
-import org.oregami.gamingEnvironments.readmodel.live.Title;
-import org.oregami.transliteratedString.Language;
-import org.oregami.transliteratedString.Script;
+import org.oregami.transliteratedString.model.Language;
+import org.oregami.transliteratedString.model.Script;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Created by sebastian on 13.03.17.

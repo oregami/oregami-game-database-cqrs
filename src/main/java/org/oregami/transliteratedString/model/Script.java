@@ -1,4 +1,4 @@
-package org.oregami.transliteratedString;
+package org.oregami.transliteratedString.model;
 
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+29+-+Scripts

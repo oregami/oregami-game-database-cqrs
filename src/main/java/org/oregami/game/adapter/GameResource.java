@@ -5,7 +5,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.oregami.game.RGameRepository;
+import org.oregami.game.model.RGameRepository;
 import org.oregami.game.application.GameApplicationService;
 import org.oregami.game.readmodel.RGame;
 import org.springframework.beans.factory.annotation.Autowired;

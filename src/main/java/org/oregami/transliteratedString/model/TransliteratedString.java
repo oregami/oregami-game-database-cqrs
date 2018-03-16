@@ -1,4 +1,4 @@
-package org.oregami.transliteratedString;
+package org.oregami.transliteratedString.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -7,7 +7,6 @@ import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.oregami.game.event.GameCreatedEvent;
 import org.oregami.transliteratedString.command.CreateTransliteratedStringCommand;
 import org.oregami.transliteratedString.event.TransliteratedStringCreatedEvent;
 

@@ -1,9 +1,8 @@
 package org.oregami.transliteratedString.application;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
-import org.oregami.transliteratedString.Language;
-import org.oregami.transliteratedString.Script;
+import org.oregami.transliteratedString.model.Language;
+import org.oregami.transliteratedString.model.Script;
 import org.oregami.transliteratedString.command.CreateTransliteratedStringCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,12 +15,12 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class TransliteratedStringApplicationService {
 
-    /**
-     *
-     */
-    @SuppressWarnings("SpringJavaAutowiringInspection")
     @Autowired
-    private CommandGateway commandGateway;
+    public TransliteratedStringApplicationService(CommandGateway commandGateway) {
+        this.commandGateway = commandGateway;
+    }
+
+    public CommandGateway commandGateway;
 
     public CompletableFuture<Object> createNewTransliteratedString(String id, String text, String language, String script) {
         return commandGateway.send(new CreateTransliteratedStringCommand(id, text, Language.valueOf(language), Script.valueOf(script)));

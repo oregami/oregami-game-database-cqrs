@@ -1,4 +1,4 @@
-package org.oregami.transliteratedString;
+package org.oregami.transliteratedString.model;
 
 import lombok.Value;
 

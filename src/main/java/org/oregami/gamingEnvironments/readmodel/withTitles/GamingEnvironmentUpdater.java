@@ -1,7 +1,7 @@
-package org.oregami.gamingEnvironments.readmodel.live;
+package org.oregami.gamingEnvironments.readmodel.withTitles;
 
 import org.axonframework.eventhandling.EventHandler;
-import org.oregami.gamingEnvironments.GamingEnvironmentRepository;
+import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
 import org.oregami.gamingEnvironments.event.TitleAddedEvent;
 import org.springframework.stereotype.Component;
@@ -31,7 +31,7 @@ public class GamingEnvironmentUpdater {
     @EventHandler
     public void on(TitleAddedEvent event) {
         GamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
-        Title t = new Title(UUID.randomUUID().toString(), event.getRegionId(), event.getTransliteratedStringId());
+        Title t = new Title(UUID.randomUUID().toString(), event.getRegionId(), event.getTransliteratedStringId(), event.getText());
         g.addTitle(t);
         repository.save(g);
     }

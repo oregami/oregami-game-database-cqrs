@@ -22,10 +22,14 @@
         <div th:if="${gamingEnvironment.gametitles.size()>0}" class="ui attached segment">
             <div class="ui bulleted list">
                 <div class="item" th:each="title : ${gamingEnvironment.gametitles}">
-                    <span th:text="${title.id}"/>
+                    <span th:text="${title.transliteratedStringText}"/>
                     <span th:if="${title.regionId!=null}">
                         (<span th:text="${title.regionId!=null ? title.regionId.value : '-'}"/>)
                     </span>
+
+                    <span th:text="${title.id}" style="font-size:60%;"/>
+
+
                 </div>
             </div>
         </div>

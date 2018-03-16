@@ -1,7 +1,7 @@
 package org.oregami.game.event;
 
 import lombok.Getter;
-import org.oregami.game.ReleaseGroupReason;
+import org.oregami.game.model.ReleaseGroupReason;
 
 /**
  * Created by sebastian on 13.12.16.

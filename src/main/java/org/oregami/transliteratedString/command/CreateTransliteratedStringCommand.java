@@ -1,7 +1,7 @@
 package org.oregami.transliteratedString.command;
 
-import org.oregami.transliteratedString.Language;
-import org.oregami.transliteratedString.Script;
+import org.oregami.transliteratedString.model.Language;
+import org.oregami.transliteratedString.model.Script;
 
 /**
  * Created by sebastian on 24.02.17.

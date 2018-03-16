@@ -1,4 +1,4 @@
-package org.oregami.gamingEnvironments.readmodel.live;
+package org.oregami.gamingEnvironments.readmodel.withTitles;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

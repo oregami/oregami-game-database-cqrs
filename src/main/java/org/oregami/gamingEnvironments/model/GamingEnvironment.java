@@ -1,4 +1,4 @@
-package org.oregami.gamingEnvironments;
+package org.oregami.gamingEnvironments.model;
 
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -8,11 +8,6 @@ import org.axonframework.commandhandling.model.AggregateLifecycle;
 import org.axonframework.commandhandling.model.AggregateMember;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
-import org.oregami.game.ReleaseGroup;
-import org.oregami.game.command.AddReleaseGroupCommand;
-import org.oregami.game.command.CreateGameCommand;
-import org.oregami.game.event.GameCreatedEvent;
-import org.oregami.game.event.ReleaseGroupAddedEvent;
 import org.oregami.gamingEnvironments.command.AddTitleCommand;
 import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
@@ -50,7 +45,7 @@ public class GamingEnvironment {
 
     @CommandHandler
     public String on(AddTitleCommand command) {
-        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getRegionId(), command.getTransliteratedStringId()));
+        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getRegionId(), command.getTransliteratedStringId(), command.getTransliteratedStringText()));
         return command.getGamingEnvironmentId();
     }
 

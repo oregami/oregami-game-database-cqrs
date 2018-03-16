@@ -1,4 +1,4 @@
-package org.oregami.game;
+package org.oregami.game.model;
 
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.axonframework.test.aggregate.FixtureConfiguration;

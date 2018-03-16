@@ -1,4 +1,4 @@
-package org.oregami.game;
+package org.oregami.game.model;
 
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+5+-+Game+Entry+Type

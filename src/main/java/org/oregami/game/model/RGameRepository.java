@@ -1,4 +1,4 @@
-package org.oregami.game;
+package org.oregami.game.model;
 
 import org.oregami.game.readmodel.RGame;
 import org.springframework.data.jpa.repository.JpaRepository;

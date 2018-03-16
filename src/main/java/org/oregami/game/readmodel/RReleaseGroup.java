@@ -2,7 +2,7 @@ package org.oregami.game.readmodel;
 
 import lombok.NoArgsConstructor;
 import org.oregami.common.BaseEntityUUID;
-import org.oregami.game.ReleaseGroupReason;
+import org.oregami.game.model.ReleaseGroupReason;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -17,11 +17,14 @@ public class AddTitleCommand {
 
     private RegionId regionId;
     private String transliteratedStringId;
+    private String transliteratedStringText;
 
-    public AddTitleCommand(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId) {
+
+    public AddTitleCommand(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId, String transliteratedStringText) {
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.regionId = regionId;
         this.transliteratedStringId = transliteratedStringId;
+        this.transliteratedStringText = transliteratedStringText;
     }
 
 }

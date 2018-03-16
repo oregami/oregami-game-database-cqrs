@@ -2,6 +2,12 @@ package org.oregami;
 
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
+import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
+import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
+import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.correlation.CorrelationDataProvider;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +25,6 @@ import java.util.Map;
 @Configuration
 public class AxonConfiguration {
 
-/*
-    @Autowired
-    public void registerInterceptors(CommandBus commandBus) {
-        if (commandBus instanceof SimpleCommandBus) {
-            Map<String, String> m = new HashMap<>();
-            m.put("userId","zzz");
-            ((SimpleCommandBus) commandBus).registerDispatchInterceptor(
-                    (messages) ->
-                            (index, message) -> message.andMetaData(m)
-            );
-        }
-    }
-*/
-
     @Bean
     public CorrelationDataProvider correlationDataProvider() {
         return new CorrelationDataProvider() {
@@ -46,5 +38,27 @@ public class AxonConfiguration {
                 return m;
             }
         };
+    }
+
+    @Bean
+    public SimpleCommandBus commandBus() {
+        SimpleCommandBus simpleCommandBus = new SimpleCommandBus();
+        return simpleCommandBus;
+    }
+
+    @Bean
+    public CommandGateway commandGateway() {
+        return new DefaultCommandGateway(commandBus());
+    }
+
+    @Bean
+    public EventStorageEngine eventStorageEngine() {
+        return new InMemoryEventStorageEngine();
+    }
+
+
+    @Bean(name = "eventBus")
+    public EventStore eventStore(EventStorageEngine eventStorageEngine) {
+        return new EmbeddedEventStore(eventStorageEngine);
     }
 }

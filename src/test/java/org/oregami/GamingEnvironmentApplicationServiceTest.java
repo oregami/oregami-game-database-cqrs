@@ -1,35 +1,47 @@
 package org.oregami;
 
+import com.sun.javadoc.LanguageVersion;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.oregami.game.GameEntryType;
-import org.oregami.game.ReleaseGroupReason;
-import org.oregami.game.application.GameApplicationService;
-import org.oregami.gamingEnvironments.GamingEnvironmentRepository;
+import org.oregami.common.types.Language;
+import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
-import org.oregami.gamingEnvironments.readmodel.live.GamingEnvironment;
-import org.oregami.gamingEnvironments.readmodel.live.Title;
+import org.oregami.gamingEnvironments.readmodel.withTitles.GamingEnvironment;
+import org.oregami.gamingEnvironments.readmodel.withTitles.Title;
 import org.oregami.regions.RRegionRepository;
 import org.oregami.regions.RegionId;
 import org.oregami.regions.application.RegionApplicationService;
+import org.oregami.transliteratedString.application.TransliteratedStringApplicationService;
+import org.oregami.transliteratedString.model.Script;
+import org.oregami.transliteratedString.model.TransliteratedStringRepository;
+import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
+import static org.oregami.transliteratedString.model.Language.ENGLISH;
+import static org.oregami.transliteratedString.model.Script.LATIN;
+
 /**
  * Created by sebastian on 17.02.17.
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest()
+@SpringBootTest
 public class GamingEnvironmentApplicationServiceTest {
 
     @Autowired
@@ -46,6 +58,9 @@ public class GamingEnvironmentApplicationServiceTest {
 
     @Autowired
     private GamingEnvironmentRepository gamingEnvironmentRepository;
+
+    @Autowired
+    private TransliteratedStringRepository transliteratedStringRepository;
 
     @Before
     public void init() {
@@ -70,8 +85,11 @@ public class GamingEnvironmentApplicationServiceTest {
         CompletableFuture<Object> resultId = gamingEnvironmentApplicationService.createNewGamingEnvironment(gamingEnvironmentId, "Mega Drive");
         Assert.assertThat(resultId.get(), Matchers.equalTo(gamingEnvironmentId));
 
+        TransliteratedString ts1 = new TransliteratedString("tsid", "text", ENGLISH, LATIN);
+        String id1 = transliteratedStringRepository.saveAndFlush(ts1).getId();
+
         RegionId regionId = new RegionId(regionRepository.findOne("NORTH_AMERICA").getId());
-        CompletableFuture<Object> resultId2 = gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, regionId, "id1");
+        CompletableFuture<Object> resultId2 = gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, regionId, id1);
 
         Assert.assertThat(gamingEnvironmentRepository.count(), Matchers.is(count+1));
 

@@ -29,6 +29,9 @@
             <div>
                 <label>transliteratedString:</label>
                 <a th:href="${'/transliteratedStrings/' + title.transliteratedStringId}" th:text="${title.transliteratedStringId}"></a>
+                <br/>
+                transliteratedStringText: <span th:text="${title.transliteratedStringText}"></span>
+
             </div>
             <div>
                 <label>region:</label>

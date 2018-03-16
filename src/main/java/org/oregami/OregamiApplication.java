@@ -1,5 +1,8 @@
 package org.oregami;
 
+import org.axonframework.commandhandling.SimpleCommandBus;
+import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.EventStore;
@@ -35,6 +38,8 @@ public class OregamiApplication {
 
     public static void main(String[] args) {
 
+
+
         org.slf4j.Logger logger = LoggerFactory.getLogger(OregamiApplication.class);
         logger.error("Message logged at ERROR level");
         logger.warn("Message logged at WARN level");
@@ -42,6 +47,9 @@ public class OregamiApplication {
         logger.debug("Message logged at DEBUG level");
 
         ConfigurableApplicationContext context = SpringApplication.run(OregamiApplication.class, args);
+
+        System.out.println("LocaleResolver: " + context.getBean(LocaleResolver.class).toString());
+
         RegionApplicationService regionApplicationService = context.getBean(RegionApplicationService.class);
         regionApplicationService.createNewRegion("EUROPE", true, false, "Europe");
         regionApplicationService.createNewRegion("UNITED_STATES", true, false, "UNITED_STATES");
@@ -53,53 +61,5 @@ public class OregamiApplication {
 
 
     }
-
-    @Bean
-    public EventStorageEngine eventStorageEngine() {
-        return new InMemoryEventStorageEngine();
-    }
-
-
-    @Bean(name = "eventBus")
-    public EventStore eventStore(EventStorageEngine eventStorageEngine) {
-        return new EmbeddedEventStore(eventStorageEngine);
-    }
-
-    /*
-    @Bean
-    public EventBus eventBus() {
-        return new SimpleEventBus();
-    }
-    */
-
-    @Bean
-    public LocaleResolver localeResolver() {
-        SessionLocaleResolver slr = new SessionLocaleResolver();
-        slr.setDefaultLocale(Locale.US); // Set default Locale as US
-        return slr;
-    }
-
-    @Bean
-    public ResourceBundleMessageSource messageSource() {
-        ResourceBundleMessageSource source = new ResourceBundleMessageSource();
-        source.setBasenames("i18n/messages");  // name of the resource bundle
-        source.setUseCodeAsDefaultMessage(false);
-        source.setCacheSeconds(-1);
-        source.setDefaultEncoding("UTF-8");
-        return source;
-    }
-
-    @Bean
-    @Scope(scopeName = WebApplicationContext.SCOPE_REQUEST,
-            proxyMode = ScopedProxyMode.TARGET_CLASS)
-    public AccessToken getAccessToken() {
-        HttpServletRequest request =
-                ((ServletRequestAttributes) RequestContextHolder
-                        .currentRequestAttributes()).getRequest();
-        return ((KeycloakPrincipal) request.getUserPrincipal())
-                .getKeycloakSecurityContext().getToken();
-    }
-
-
 
 }

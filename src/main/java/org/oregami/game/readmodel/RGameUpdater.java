@@ -1,9 +1,9 @@
 package org.oregami.game.readmodel;
 
 import org.axonframework.eventhandling.EventHandler;
-import org.oregami.game.model.RGameRepository;
 import org.oregami.game.event.GameCreatedEvent;
 import org.oregami.game.event.ReleaseGroupAddedEvent;
+import org.oregami.game.model.RGameRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

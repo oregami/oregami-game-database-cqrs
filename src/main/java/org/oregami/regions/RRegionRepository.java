@@ -1,6 +1,5 @@
 package org.oregami.regions;
 
-import org.oregami.game.readmodel.RGame;
 import org.oregami.regions.readmodel.RRegion;
 import org.springframework.data.jpa.repository.JpaRepository;
 

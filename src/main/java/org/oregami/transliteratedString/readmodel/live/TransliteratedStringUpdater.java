@@ -1,8 +1,8 @@
 package org.oregami.transliteratedString.readmodel.live;
 
 import org.axonframework.eventhandling.EventHandler;
-import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.event.TransliteratedStringCreatedEvent;
+import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

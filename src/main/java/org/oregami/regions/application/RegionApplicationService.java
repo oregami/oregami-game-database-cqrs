@@ -1,7 +1,6 @@
 package org.oregami.regions.application;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
 import org.oregami.regions.RegionId;
 import org.oregami.regions.command.CreateRegionCommand;
 import org.springframework.beans.factory.annotation.Autowired;

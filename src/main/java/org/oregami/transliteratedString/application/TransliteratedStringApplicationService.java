@@ -1,9 +1,9 @@
 package org.oregami.transliteratedString.application;
 
 import org.axonframework.commandhandling.gateway.CommandGateway;
+import org.oregami.transliteratedString.command.CreateTransliteratedStringCommand;
 import org.oregami.transliteratedString.model.Language;
 import org.oregami.transliteratedString.model.Script;
-import org.oregami.transliteratedString.command.CreateTransliteratedStringCommand;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,32 +1,22 @@
 package org.oregami;
 
-import com.sun.javadoc.LanguageVersion;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.oregami.common.types.Language;
-import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
+import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.readmodel.withTitles.GamingEnvironment;
 import org.oregami.gamingEnvironments.readmodel.withTitles.Title;
 import org.oregami.regions.RRegionRepository;
 import org.oregami.regions.RegionId;
 import org.oregami.regions.application.RegionApplicationService;
-import org.oregami.transliteratedString.application.TransliteratedStringApplicationService;
-import org.oregami.transliteratedString.model.Script;
 import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.TypeExcludeFilter;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.FilterType;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.UUID;

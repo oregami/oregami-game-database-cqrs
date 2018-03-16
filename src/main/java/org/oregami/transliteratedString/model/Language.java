@@ -1,7 +1,5 @@
 package org.oregami.transliteratedString.model;
 
-import lombok.Value;
-
 /**
  * see http://wiki.oregami.org/display/OR/Data+List+5+-+Game+Entry+Type
  * Used in Game-Entity

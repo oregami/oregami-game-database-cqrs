@@ -1,9 +1,9 @@
 package org.oregami.gamingEnvironments.readmodel.withTitles;
 
 import org.axonframework.eventhandling.EventHandler;
-import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
 import org.oregami.gamingEnvironments.event.TitleAddedEvent;
+import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;

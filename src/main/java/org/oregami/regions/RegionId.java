@@ -1,8 +1,6 @@
 package org.oregami.regions;
 
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.Value;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;

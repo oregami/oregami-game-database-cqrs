@@ -1,6 +1,5 @@
 package org.oregami.transliteratedString.model;
 
-import org.oregami.transliteratedString.readmodel.live.*;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.data.jpa.repository.JpaRepository;
 

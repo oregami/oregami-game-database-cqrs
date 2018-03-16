@@ -16,7 +16,6 @@ import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
 
 @Configuration
 @Component

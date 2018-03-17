@@ -78,8 +78,7 @@ public class GamingEnvironmentApplicationServiceTest {
         TransliteratedString ts1 = new TransliteratedString("tsid", "text", ENGLISH, LATIN);
         String id1 = transliteratedStringRepository.saveAndFlush(ts1).getId();
 
-        RegionId regionId = new RegionId(regionRepository.findOne("NORTH_AMERICA").getId());
-        CompletableFuture<Object> resultId2 = gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, regionId, id1);
+        CompletableFuture<Object> resultId2 = gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, id1);
 
         Assert.assertThat(gamingEnvironmentRepository.count(), Matchers.is(count+1));
 
@@ -87,7 +86,6 @@ public class GamingEnvironmentApplicationServiceTest {
         Assert.assertThat(one.getId(), Matchers.is(gamingEnvironmentId));
         Assert.assertThat(one.getGametitles().size(), Matchers.is(1));
         Title title = one.getGametitles().iterator().next();
-        Assert.assertThat(title.getRegionId().getValue(), Matchers.is("NORTH_AMERICA"));
 
 
 

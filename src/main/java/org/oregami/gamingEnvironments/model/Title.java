@@ -17,12 +17,10 @@ public class Title {
     @EntityId
     private String titleId;
 
-    private RegionId regionId;
     private String transliteratedStringId;
 
-    public Title(String titleId, RegionId regionId, String transliteratedStringId) {
+    public Title(String titleId, String transliteratedStringId) {
         this.titleId = titleId;
-        this.regionId = regionId;
         this.transliteratedStringId = transliteratedStringId;
     }
 

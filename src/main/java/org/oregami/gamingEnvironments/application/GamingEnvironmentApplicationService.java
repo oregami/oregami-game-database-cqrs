@@ -32,9 +32,9 @@ public class GamingEnvironmentApplicationService {
     }
 
 
-    public CompletableFuture<Object> addTitle(String gamingEnvironmentId, RegionId regionId, String transliteratedStringId) {
+    public CompletableFuture<Object> addTitle(String gamingEnvironmentId, String transliteratedStringId) {
         TransliteratedString transliteratedString = transliteratedStringRepository.findOne(transliteratedStringId);
-        return commandGateway.send(new AddTitleCommand(gamingEnvironmentId, regionId, transliteratedStringId, transliteratedString.getText()));
+        return commandGateway.send(new AddTitleCommand(gamingEnvironmentId, transliteratedStringId, transliteratedString.getText()));
     }
 
 

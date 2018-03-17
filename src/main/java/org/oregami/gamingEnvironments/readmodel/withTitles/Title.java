@@ -17,20 +17,14 @@ import javax.persistence.Entity;
 @Getter
 public class Title extends BaseEntityUUID {
 
-
-    @Column
-    @Embedded
-    private RegionId regionId;
-
     @Column
     private String transliteratedStringId;
 
     @Column
     private String transliteratedStringText;
 
-    public Title(String id, RegionId regionId, String transliteratedStringId, String transliteratedStringText) {
+    public Title(String id, String transliteratedStringId, String transliteratedStringText) {
         super(id);
-        this.regionId = regionId;
         this.transliteratedStringId = transliteratedStringId;
         this.transliteratedStringText = transliteratedStringText;
     }

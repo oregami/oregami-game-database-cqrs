@@ -45,13 +45,13 @@ public class GamingEnvironment {
 
     @CommandHandler
     public String on(AddTitleCommand command) {
-        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getRegionId(), command.getTransliteratedStringId(), command.getTransliteratedStringText()));
+        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getTransliteratedStringId(), command.getTransliteratedStringText()));
         return command.getGamingEnvironmentId();
     }
 
     @EventSourcingHandler
     public void in(TitleAddedEvent event) {
-        Title t = new Title(event.getGamingEnvironmentId(), event.getRegionId(), event.getTransliteratedStringId());
+        Title t = new Title(event.getGamingEnvironmentId(), event.getTransliteratedStringId());
         this.gametitles.add(t);
     }
 

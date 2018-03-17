@@ -44,9 +44,8 @@ public class GamingEnvironmentResource {
     @PostMapping(value = "/{gamingEnvironmentId}/addTitle")
     public String addTitle(@PathVariable String gamingEnvironmentId
             , @RequestParam String titleId
-            , @RequestParam String regionId
             , Model model) {
-        gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, new RegionId(regionId), titleId);
+        gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, titleId);
         model.addAttribute("gamingEnvironmentId", gamingEnvironmentId);
         return "gamingEnvironments/update_done";
     }

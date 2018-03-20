@@ -3,16 +3,12 @@ package org.oregami;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
 import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.readmodel.withTitles.GamingEnvironment;
 import org.oregami.gamingEnvironments.readmodel.withTitles.Title;
-import org.oregami.regions.RRegionRepository;
-import org.oregami.regions.RegionId;
-import org.oregami.regions.application.RegionApplicationService;
 import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,24 +34,13 @@ public class GamingEnvironmentApplicationServiceTest {
     GamingEnvironmentApplicationService gamingEnvironmentApplicationService;
 
     @Autowired
-    RRegionRepository regionRepository;
-
-    @Autowired
     EventStore eventStore;
-
-    @Autowired
-    private RegionApplicationService regionApplicationService;
 
     @Autowired
     private GamingEnvironmentRepository gamingEnvironmentRepository;
 
     @Autowired
     private TransliteratedStringRepository transliteratedStringRepository;
-
-    @Before
-    public void init() {
-        regionApplicationService.createNewRegion("NORTH_AMERICA", true, false, "this is _NORTH_AMERICA");
-    }
 
 
     @Test

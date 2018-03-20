@@ -2,7 +2,6 @@ package org.oregami.gamingEnvironments.command;
 
 import lombok.Getter;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
-import org.oregami.regions.RegionId;
 
 /**
  * Created by sebastian on 28.02.17.

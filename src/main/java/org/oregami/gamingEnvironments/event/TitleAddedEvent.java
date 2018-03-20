@@ -1,7 +1,6 @@
 package org.oregami.gamingEnvironments.event;
 
 import lombok.Getter;
-import org.oregami.regions.RegionId;
 
 /**
  * Created by sebastian on 28.02.17.

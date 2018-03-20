@@ -4,7 +4,6 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.model.EntityId;
-import org.oregami.regions.RegionId;
 
 /**
  * Created by sebastian on 28.02.17.

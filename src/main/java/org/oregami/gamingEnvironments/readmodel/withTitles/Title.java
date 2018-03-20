@@ -3,10 +3,8 @@ package org.oregami.gamingEnvironments.readmodel.withTitles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.oregami.common.BaseEntityUUID;
-import org.oregami.regions.RegionId;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 /**

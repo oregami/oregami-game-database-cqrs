@@ -3,7 +3,6 @@ package org.oregami.gamingEnvironments.application;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.oregami.gamingEnvironments.command.AddTitleCommand;
 import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
-import org.oregami.regions.RegionId;
 import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;

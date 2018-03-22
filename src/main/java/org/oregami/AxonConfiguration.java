@@ -38,6 +38,7 @@ public class AxonConfiguration {
         };
     }
 
+    /*
     @Bean
     public SimpleCommandBus commandBus() {
         SimpleCommandBus simpleCommandBus = new SimpleCommandBus();
@@ -59,4 +60,5 @@ public class AxonConfiguration {
     public EventStore eventStore(EventStorageEngine eventStorageEngine) {
         return new EmbeddedEventStore(eventStorageEngine);
     }
+    */
 }

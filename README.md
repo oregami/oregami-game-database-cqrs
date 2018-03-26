@@ -1,5 +1,6 @@
 # oregami-game-database-cqrs
-Oregami game database - CQRS version
+Oregami game database - CQRS version   [![Build Status](https://travis-ci.org/oregami/oregami-game-database-cqrs.svg?branch=master)](https://travis-ci.org/oregami/oregami-game-database-cqrs)
+
 
 Website: www.oregami.org
 

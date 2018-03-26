@@ -4,7 +4,7 @@ jdk:
 deploy:
   provider: releases
   overwrite: true
-  tag_name: "v0.0.0b",
+  tag_name: "v0.0.0b"
   api_key:
     secure: bRJFnjnM/hTToL8INg0GHBHyVbTCGC29Xx12ajSt1MuElCr+X9N51JMUQeOEVOV0ESl/kOJhbqInQ/6L1p3hhZOO2tOL0eiE+b5incL4oH3dhxus561XlS6Qwm/r+UAKhJxfcF2NFzg8BKbHthOMaxHmQ2UYssL951jQWpIa2xObGHQJVvTW/wFjsBk1VtgNq1IK5zsL0kEMRDZJH7iEMx7jd6takP6HRZFPsw1KdJ33IKPtZN8noR2doqFcv4YevP52BK6/f37c/4+lgEQn5ldlSuJRyXE1DQcHfEMxrG3TXc3QQkdZe2dT06b5szuCYC4rAvDCNMatklHPaK8H8EcDMKPUk+oPyfP0IWhouHJutStk8oP45Vhk7Jo0isuYpCjNjzAAORvowdmAq4h63T1jktOKnj0jaCjioHh9vNIMxTrcHsVjb3ohJ1hdS71O40S9Bs1yQMceLWlUY9/gmZljpQUmycQPn+xzzsbhI7fJSgDL9doqVw0BwRpvwdyy5xXk6YkhZSTV2oJZksAr7t3VWl8E4WT4x1Ef+qxjWnJBzxIeik93bu3UPti5jiUEfIU+a14IWNdXOzYWQkxObmFUvovZv8DUNGODPKCyQlEOIHlaTgsBEw8Z5+kj1dfEp/MgUeS7xTX7px7kzW8vyqHlWDzMVHE2qgyhBYmsX6E=
   file: target/oregami-0.0.2-SNAPSHOT.jar

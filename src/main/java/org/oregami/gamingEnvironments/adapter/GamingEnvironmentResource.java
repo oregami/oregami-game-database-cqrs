@@ -23,14 +23,18 @@ import java.util.concurrent.CompletableFuture;
 @Controller
 public class GamingEnvironmentResource {
 
-    @Autowired
     private GamingEnvironmentApplicationService gamingEnvironmentApplicationService;
 
-    @Autowired
     private EventStore eventStore;
 
-    @Autowired
     private GamingEnvironmentRepository gamingEnvironmentRepository;
+
+    @Autowired
+    public GamingEnvironmentResource(GamingEnvironmentApplicationService gamingEnvironmentApplicationService, EventStore eventStore, GamingEnvironmentRepository gamingEnvironmentRepository) {
+        this.gamingEnvironmentApplicationService = gamingEnvironmentApplicationService;
+        this.eventStore = eventStore;
+        this.gamingEnvironmentRepository = gamingEnvironmentRepository;
+    }
 
     @PostMapping(value = "/create")
     public String create(@RequestParam String workingTitle, Model model) {
@@ -79,8 +83,6 @@ public class GamingEnvironmentResource {
     }
 
 
-
-
     private List<Map<String, Object>> getEventsForGamingEnvironmentAsStrings(String gamingEnvironmentId) {
         List<Map<String, Object>> result = new ArrayList<>();
         DomainEventStream domainEventStream = eventStore.readEvents(gamingEnvironmentId);
@@ -89,7 +91,7 @@ public class GamingEnvironmentResource {
             LinkedHashMap<String, Object> map = new LinkedHashMap<>();
             DomainEventMessage<?> event = iterator.next();
             map.put("Timestamp", event.getTimestamp());
-            map.put("Payload",  event.getPayloadType().getSimpleName() + ": " + ToStringBuilder.reflectionToString(event.getPayload(), RecursiveToStringStyle.JSON_STYLE));
+            map.put("Payload", event.getPayloadType().getSimpleName() + ": " + ToStringBuilder.reflectionToString(event.getPayload(), RecursiveToStringStyle.JSON_STYLE));
             map.put("MetaData", ToStringBuilder.reflectionToString(event.getMetaData(), RecursiveToStringStyle.JSON_STYLE));
             result.add(map);
         }

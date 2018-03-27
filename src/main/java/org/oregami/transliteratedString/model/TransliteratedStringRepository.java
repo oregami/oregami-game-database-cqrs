@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface TransliteratedStringRepository extends JpaRepository<TransliteratedString, String> {
 
-    public List<TransliteratedString> findByTextIgnoreCaseContaining(String text);
+    List<TransliteratedString> findByTextIgnoreCaseContaining(String text);
 
 
 }

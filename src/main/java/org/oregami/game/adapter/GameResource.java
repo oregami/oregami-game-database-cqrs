@@ -23,14 +23,18 @@ import java.util.concurrent.CompletableFuture;
 @Controller
 public class GameResource {
 
-    @Autowired
     private GameApplicationService gameApplicationService;
 
-    @Autowired
     private EventStore eventStore;
 
+    private RGameRepository rGameRepository;
+
     @Autowired
-    private RGameRepository gameRepository;
+    public GameResource(GameApplicationService gameApplicationService, EventStore eventStore, RGameRepository rGameRepository) {
+        this.gameApplicationService = gameApplicationService;
+        this.eventStore = eventStore;
+        this.rGameRepository = rGameRepository;
+    }
 
     @PostMapping(value = "/createGame")
     public String createGame(@RequestParam String gameEntryType, @RequestParam String workingTitle, Model model) {
@@ -55,13 +59,13 @@ public class GameResource {
 
     @GetMapping
     public String  getAll(Model model) {
-        model.addAttribute("list", gameRepository.findAll());
+        model.addAttribute("list", rGameRepository.findAll());
         return "games/list";
     }
 
     @GetMapping(value = "/{gameId}")
     public String getOne(@PathVariable String gameId, Model model) {
-        RGame game = gameRepository.findOne(gameId);
+        RGame game = rGameRepository.findOne(gameId);
         model.addAttribute("game", game);
         model.addAttribute("events", getEventsForGameAsStrings(gameId));
         return "games/one";

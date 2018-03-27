@@ -4,6 +4,8 @@ import org.axonframework.eventhandling.EventHandler;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
 import org.oregami.gamingEnvironments.event.TitleAddedEvent;
 import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
+import org.oregami.transliteratedString.model.TransliteratedStringRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -15,8 +17,12 @@ import java.util.UUID;
 @Component
 public class GamingEnvironmentUpdater {
 
+    @Autowired //TODO use decoupled access (REST call) instead of direct repository call
+    TransliteratedStringRepository transliteratedStringRepository;
+
     GamingEnvironmentRepository repository;
 
+    @Autowired
     public GamingEnvironmentUpdater(GamingEnvironmentRepository repository) {
         this.repository = repository;
     }
@@ -31,7 +37,8 @@ public class GamingEnvironmentUpdater {
     @EventHandler
     public void on(TitleAddedEvent event) {
         GamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
-        Title t = new Title(UUID.randomUUID().toString(), event.getTransliteratedStringId(), event.getText());
+        String tsText = transliteratedStringRepository.findOne(event.getTransliteratedStringId()).getText();
+        Title t = new Title(UUID.randomUUID().toString(), event.getTransliteratedStringId(), tsText);
         g.addTitle(t);
         repository.save(g);
     }

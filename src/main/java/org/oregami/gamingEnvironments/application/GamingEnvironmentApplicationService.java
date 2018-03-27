@@ -16,15 +16,15 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class GamingEnvironmentApplicationService {
 
-    /**
-     *
-     */
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
     private CommandGateway commandGateway;
 
-    @Autowired
     private TransliteratedStringRepository transliteratedStringRepository;
+
+    @Autowired
+    public GamingEnvironmentApplicationService(CommandGateway commandGateway, TransliteratedStringRepository transliteratedStringRepository) {
+        this.commandGateway = commandGateway;
+        this.transliteratedStringRepository = transliteratedStringRepository;
+    }
 
     public CompletableFuture<Object> createNewGamingEnvironment(String id, String workingTitle) {
         return commandGateway.send(new CreateGamingEnvironmentCommand(id, workingTitle));

@@ -20,14 +20,15 @@ import java.util.concurrent.CompletableFuture;
 @Controller
 public class TransliteratedStringResource {
 
-    @Autowired
     private TransliteratedStringApplicationService transliteratedStringApplicationService;
 
-    @Autowired
-    private EventStore eventStore;
+    private TransliteratedStringRepository transliteratedStringRepository;
 
     @Autowired
-    private TransliteratedStringRepository transliteratedStringRepository;
+    public TransliteratedStringResource(TransliteratedStringApplicationService transliteratedStringApplicationService, TransliteratedStringRepository transliteratedStringRepository) {
+        this.transliteratedStringApplicationService = transliteratedStringApplicationService;
+        this.transliteratedStringRepository = transliteratedStringRepository;
+    }
 
     @PostMapping(value = "/create")
     public String create(

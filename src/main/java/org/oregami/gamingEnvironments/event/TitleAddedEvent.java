@@ -10,12 +10,10 @@ public class TitleAddedEvent {
 
     private String gamingEnvironmentId;
     private String transliteratedStringId;
-    private String text;
 
-    public TitleAddedEvent(String gamingEnvironmentId, String transliteratedStringId, String text) {
+    public TitleAddedEvent(String gamingEnvironmentId, String transliteratedStringId) {
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.transliteratedStringId = transliteratedStringId;
-        this.text = text;
     }
 
 }

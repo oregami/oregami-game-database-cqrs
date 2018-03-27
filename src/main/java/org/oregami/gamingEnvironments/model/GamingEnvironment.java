@@ -45,7 +45,7 @@ public class GamingEnvironment {
 
     @CommandHandler
     public String on(AddTitleCommand command) {
-        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getTransliteratedStringId(), command.getTransliteratedStringText()));
+        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getTransliteratedStringId()));
         return command.getGamingEnvironmentId();
     }
 

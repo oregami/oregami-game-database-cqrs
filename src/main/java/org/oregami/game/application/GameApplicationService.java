@@ -16,12 +16,12 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class GameApplicationService {
 
-    /**
-     *
-     */
-    @SuppressWarnings("SpringJavaAutowiringInspection")
-    @Autowired
     private CommandGateway commandGateway;
+
+    @Autowired
+    public GameApplicationService(CommandGateway commandGateway) {
+        this.commandGateway = commandGateway;
+    }
 
     public CompletableFuture<Object> createNewGame(String gameId, String gameEntryType, String workingTitle) {
         return commandGateway.send(new CreateGameCommand(gameId, GameEntryType.valueOf(gameEntryType), workingTitle));

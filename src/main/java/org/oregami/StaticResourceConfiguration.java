@@ -21,8 +21,12 @@ import javax.servlet.http.HttpServletResponse;
 @Component
 public class StaticResourceConfiguration extends WebMvcConfigurerAdapter {
 
-    @Autowired
     private URLConfiguration urlConfiguration;
+
+    @Autowired
+    public StaticResourceConfiguration(URLConfiguration urlConfiguration) {
+        this.urlConfiguration = urlConfiguration;
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

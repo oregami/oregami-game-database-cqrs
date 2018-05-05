@@ -23,47 +23,20 @@
 
         <div class="ui form">
             <div class="fields">
-                <div class="field">
+                <div class="field" th:classappend="${result?.fieldHasError('text')} ? 'error' : ''">
                     <label>Text:</label>
-                    <input type="text" name="text"/>
+                    <input type="text" name="text" th:value="${text}"/>
                 </div>
-                <div class="field">
+                <div class="field" th:classappend="${result!=null and result.fieldHasError('language')} ? 'error' : ''">
                     <label th:text="#{transliteratedStrings.language} + ':'"></label>
-                    <select name="language">
-                        <option>ENGLISH</option>
-                        <option>GERMAN</option>
-                        <option>ARABIC</option>
-                        <option>BENGALI</option>
-                        <option>CANTONESE</option>
-                        <option>CHINESE</option>
-                        <option>DUTCH</option>
-                        <option>FRENCH</option>
-                        <option>GREEK</option>
-                        <option>HINDI</option>
-                        <option>ITALIAN</option>
-                        <option>JAPANESE</option>
-                        <option>KOREAN</option>
-                        <option>MANDARIN</option>
-                        <option>PERSIAN</option>
-                        <option>POLISH</option>
-                        <option>PORTUGUESE</option>
-                        <option>PUNJABI</option>
-                        <option>RUSSIAN</option>
-                        <option>SPANISH</option>
-                        <option>TURKISH</option>
+                    <select name="language" th:value="${language}">
+                        <option th:each="l: ${availableLanguages}" th:value="${l}" th:text="${l}" th:selected="${language == l}"></option>
                     </select>
                 </div>
                 <div class="field">
                     <label th:text="#{transliteratedStrings.script} + ':'"></label>
-                    <select name="script">
-                        <option>LATIN</option>
-                        <option>ARABIC</option>
-                        <option>CHINESE</option>
-                        <option>CYRILLIC</option>
-                        <option>GREEK</option>
-                        <option>HEBREW</option>
-                        <option>JAPANESE</option>
-                        <option>KOREAN</option>
+                    <select name="script" th:value="${script}">
+                        <option th:each="s: ${availableScripts}" th:value="${s}" th:text="${s}" th:selected="${script == s}"></option>
                     </select>
                 </div>
             </div>
@@ -72,6 +45,29 @@
         <button class="ui button" type="submit" th:text="#{common.save}"></button>
     </form>
 
+<br/>
+
+    <div class="ui segments" th:if="${result}">
+        <div class="ui segment">
+            <p class="ui red label">Errors</p>
+        </div>
+        <div class="ui segments">
+            <div class="ui segment" th:each="error: ${result.errors}">
+                <p th:text="${error.messageName + ' (' + error.context.field + ')'}"></p>
+            </div>
+        </div>
+
+    </div>
+
+    <!--
+    <div th:if="${result}">
+        <strong class="ui red label">Errors</strong>
+        <ul style="color:red;">
+            <li th:each="error: ${result.errors}" th:text="${error.messageName + ' (' + error.context.field + ')'}"></li>
+        </ul>
+
+    </div>
+    -->
 </div>
 
 <div th:replace="footer :: copy"></div>

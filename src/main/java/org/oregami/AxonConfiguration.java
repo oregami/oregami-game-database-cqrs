@@ -1,14 +1,11 @@
 package org.oregami;
 
+import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.commandhandling.SimpleCommandBus;
-import org.axonframework.commandhandling.gateway.CommandGateway;
-import org.axonframework.commandhandling.gateway.DefaultCommandGateway;
-import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
-import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
-import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.correlation.CorrelationDataProvider;
+import org.oregami.common.ValidationInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.core.Authentication;
@@ -38,27 +35,12 @@ public class AxonConfiguration {
         };
     }
 
-    /*
-    @Bean
-    public SimpleCommandBus commandBus() {
-        SimpleCommandBus simpleCommandBus = new SimpleCommandBus();
-        return simpleCommandBus;
+    @Autowired
+    public void registerInterceptors(@Autowired CommandBus commandBus, @Autowired ValidationInterceptor validationInterceptor) {
+        if (commandBus instanceof SimpleCommandBus) {
+            SimpleCommandBus simpleCommandBus = (SimpleCommandBus) commandBus;
+            simpleCommandBus.registerHandlerInterceptor(validationInterceptor);
+        }
     }
 
-    @Bean
-    public CommandGateway commandGateway() {
-        return new DefaultCommandGateway(commandBus());
-    }
-
-    @Bean
-    public EventStorageEngine eventStorageEngine() {
-        return new InMemoryEventStorageEngine();
-    }
-
-
-    @Bean(name = "eventBus")
-    public EventStore eventStore(EventStorageEngine eventStorageEngine) {
-        return new EmbeddedEventStore(eventStorageEngine);
-    }
-    */
 }

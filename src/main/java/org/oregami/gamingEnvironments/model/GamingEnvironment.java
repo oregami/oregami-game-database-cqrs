@@ -9,9 +9,11 @@ import org.axonframework.commandhandling.model.AggregateMember;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.spring.stereotype.Aggregate;
 import org.oregami.gamingEnvironments.command.AddTitleCommand;
+import org.oregami.gamingEnvironments.command.AddTitleUsageCommand;
 import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
 import org.oregami.gamingEnvironments.event.TitleAddedEvent;
+import org.oregami.gamingEnvironments.event.TitleUsageAddedEvent;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -54,5 +56,12 @@ public class GamingEnvironment {
         Title t = new Title(event.getGamingEnvironmentId(), event.getTransliteratedStringId());
         this.gametitles.add(t);
     }
+
+    @CommandHandler
+    public String on(AddTitleUsageCommand command) {
+        AggregateLifecycle.apply(new TitleUsageAddedEvent(command.getGamingEnvironmentId(), command.getTitleId(), command.getRegion()));
+        return command.getGamingEnvironmentId();
+    }
+
 
 }

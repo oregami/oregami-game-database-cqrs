@@ -1,6 +1,6 @@
 package org.oregami.transliteratedString.adapter;
 
-import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.oregami.common.ValidationException;
 import org.oregami.transliteratedString.application.TransliteratedStringApplicationService;
 import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sebastian on 17.12.16.
@@ -38,10 +40,34 @@ public class TransliteratedStringResource {
             @RequestParam(value = "backUrl", defaultValue = "") String backUrl,
             Model model) {
         String id = UUID.randomUUID().toString();
+
+        model.addAttribute("availableLanguages", availableLanguages());
+        model.addAttribute("availableScripts", availableScripts());
+
         CompletableFuture<Object> completableFuture = transliteratedStringApplicationService.createNewTransliteratedString(id, text, language, script);
+        try {
+            Object result = completableFuture.get();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+
+        } catch (ExecutionException e) {
+            if (e.getCause() instanceof ValidationException) {
+                model.addAttribute("result", ((ValidationException) e.getCause()).getResult());
+
+                model.addAttribute("text", text);
+                model.addAttribute("language", language);
+                model.addAttribute("script", script);
+
+
+                return "transliteratedStrings/create";
+            }
+        }
+
         model.addAttribute("transliteratedStringId", id);
         model.addAttribute("backUrl", backUrl);
         return "transliteratedStrings/created";
+
     }
 
     @GetMapping
@@ -59,6 +85,9 @@ public class TransliteratedStringResource {
 
     @GetMapping(value = "/create")
     public String create(Model model) {
+        model.addAttribute("availableLanguages", availableLanguages());
+        model.addAttribute("availableScripts", availableScripts());
+
         return "transliteratedStrings/create";
     }
 
@@ -75,6 +104,45 @@ public class TransliteratedStringResource {
         model.addAttribute("transliteratedStrings", transliteratedStrings);
 
         return "transliteratedStrings/search";
+    }
+
+
+    private List<String> availableLanguages() {
+        List<String> list = new ArrayList<>();
+        list.add("ENGLISH");
+        list.add("GERMAN");
+        list.add("ARABIC");
+        list.add("BENGALI");
+        list.add("CANTONESE");
+        list.add("CHINESE");
+        list.add("DUTCH");
+        list.add("FRENCH");
+        list.add("GREEK");
+        list.add("HINDI");
+        list.add("ITALIAN");
+        list.add("JAPANESE");
+        list.add("KOREAN");
+        list.add("MANDARIN");
+        list.add("PERSIAN");
+        list.add("POLISH");
+        list.add("PORTUGUESE");
+        list.add("PUNJABI");
+        list.add("RUSSIAN");
+        list.add("SPANISH");
+        list.add("TURKISH");
+        return list;
+    }
+
+    private List<String> availableScripts() {
+        List<String> list = new ArrayList<>();
+        list.add("LATIN");
+        list.add("ARABIC");
+        list.add("CHINESE");
+        list.add("CYRILLIC");
+        list.add("GREEK");
+        list.add("JAPANESE");
+        list.add("KOREAN");
+        return list;
     }
 
 

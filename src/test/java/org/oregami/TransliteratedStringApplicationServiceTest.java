@@ -5,6 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.oregami.common.ValidationException;
 import org.oregami.transliteratedString.application.TransliteratedStringApplicationService;
 import org.oregami.transliteratedString.model.Language;
 import org.oregami.transliteratedString.model.Script;
@@ -37,7 +38,7 @@ public class TransliteratedStringApplicationServiceTest {
 
 
     @Test
-    public void createNewTransliteratedString() throws ExecutionException, InterruptedException {
+    public void createNewTransliteratedString() throws ExecutionException, InterruptedException, ValidationException {
         String id = UUID.randomUUID().toString();
         CompletableFuture<Object> resultId = applicationService.createNewTransliteratedString(id, "Mega Drive", "ENGLISH", "LATIN");
         Assert.assertThat(resultId.get(), Matchers.equalTo(id));

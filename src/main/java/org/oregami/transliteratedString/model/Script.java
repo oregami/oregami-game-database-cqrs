@@ -7,7 +7,7 @@ package org.oregami.transliteratedString.model;
 public enum Script {
     LATIN,
     ARABIC,
-    CYRILlIC,
+    CYRILLIC,
     JAPANESE,
     CHINESE,
     KOREAN,

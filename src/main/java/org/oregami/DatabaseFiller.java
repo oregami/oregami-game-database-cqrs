@@ -1,6 +1,5 @@
 package org.oregami;
 
-import org.oregami.common.CommonResult;
 import org.oregami.game.application.GameApplicationService;
 import org.oregami.game.model.GameEntryType;
 import org.oregami.game.model.ReleaseGroupReason;
@@ -15,7 +14,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
-import sun.plugin.liveconnect.SecurityContextHelper;
 
 import java.util.Collection;
 import java.util.UUID;

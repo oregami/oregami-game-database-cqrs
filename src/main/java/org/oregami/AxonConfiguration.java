@@ -8,6 +8,7 @@ import org.oregami.common.ValidationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
@@ -36,7 +37,7 @@ public class AxonConfiguration {
     }
 
     @Autowired
-    public void registerInterceptors(@Autowired CommandBus commandBus, @Autowired ValidationInterceptor validationInterceptor) {
+    public void registerInterceptors(@Lazy @Autowired CommandBus commandBus, @Autowired ValidationInterceptor validationInterceptor) {
         if (commandBus instanceof SimpleCommandBus) {
             SimpleCommandBus simpleCommandBus = (SimpleCommandBus) commandBus;
             simpleCommandBus.registerHandlerInterceptor(validationInterceptor);

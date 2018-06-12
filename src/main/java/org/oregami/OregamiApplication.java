@@ -8,13 +8,11 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.LocaleResolver;
 
 @SpringBootApplication
-@ComponentScan({"org.oregami", "org.oregami.game"})
+@ComponentScan({"org.oregami"})
 public class OregamiApplication {
 
 
     public static void main(String[] args) {
-
-
 
         org.slf4j.Logger logger = LoggerFactory.getLogger(OregamiApplication.class);
         logger.error("Message logged at ERROR level");

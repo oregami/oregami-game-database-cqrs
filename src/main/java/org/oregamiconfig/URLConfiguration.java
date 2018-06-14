@@ -1,4 +1,4 @@
-package org.oregami;
+package org.oregamiconfig;
 
 import org.springframework.stereotype.Component;
 

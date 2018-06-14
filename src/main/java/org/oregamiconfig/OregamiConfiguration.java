@@ -1,11 +1,13 @@
-package org.oregami;
+package org.oregamiconfig;
 
+import org.axonframework.boot.autoconfig.AxonAutoConfiguration;
 import org.keycloak.KeycloakPrincipal;
 import org.keycloak.representations.AccessToken;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
+import org.oregamiconfig.AxonConfiguration;
+import org.oregamiconfig.SecurityConfiguration;
+import org.oregamiconfig.StaticResourceConfiguration;
+import org.oregamiconfig.URLConfiguration;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Locale;
 
 @Configuration
+@Import({AxonConfiguration.class, SecurityConfiguration.class, StaticResourceConfiguration.class, URLConfiguration.class})
 public class OregamiConfiguration {
 
 

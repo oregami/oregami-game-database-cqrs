@@ -1,4 +1,4 @@
-package org.oregami;
+package org.oregamiconfig;
 
 import org.keycloak.adapters.KeycloakConfigResolver;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
@@ -23,7 +23,7 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
-class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
+public class SecurityConfiguration extends KeycloakWebSecurityConfigurerAdapter {
 
     @Value("${keycloak.auth-server-url}")
     private String keycloakUrl;

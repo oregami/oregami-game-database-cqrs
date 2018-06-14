@@ -1,4 +1,4 @@
-package org.oregami;
+package org.oregamiconfig;
 
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
 import org.springframework.beans.factory.annotation.Autowired;

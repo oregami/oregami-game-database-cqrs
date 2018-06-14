@@ -2,12 +2,15 @@ package org.oregami.gamingEnvironments.command;
 
 import lombok.Getter;
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
+import org.oregami.common.CommandValidator;
+import org.oregami.gamingEnvironments.model.GamingEnvironmentValidator;
 import org.oregami.gamingEnvironments.model.Region;
 
 /**
  * Created by sebastian on 28.02.17.
  */
 @Getter
+@CommandValidator(GamingEnvironmentValidator.class)
 public class AddTitleUsageCommand {
 
     @TargetAggregateIdentifier

@@ -7,14 +7,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
 import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
+import org.oregami.gamingEnvironments.model.Region;
 import org.oregami.gamingEnvironments.readmodel.withTitles.GamingEnvironment;
 import org.oregami.gamingEnvironments.readmodel.withTitles.Title;
+import org.oregami.gamingEnvironments.readmodel.withTitles.TitleUsage;
 import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -73,6 +76,15 @@ public class GamingEnvironmentApplicationServiceTest {
         Title title = one.getGametitles().iterator().next();
 
 
+        CompletableFuture<Object> completableFuture = gamingEnvironmentApplicationService.addTitleUsage(gamingEnvironmentId, id1, Region.EUROPE);
+
+        Object result = completableFuture.get();
+
+        GamingEnvironment loaded = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
+
+        Set<TitleUsage> titleUsages = loaded.getGametitles().iterator().next().getTitleUsages();
+        Assert.assertThat(titleUsages.size(), Matchers.is(1));
+        Assert.assertThat(titleUsages.iterator().next().getRegion(), Matchers.is(Region.EUROPE));
 
     }
 

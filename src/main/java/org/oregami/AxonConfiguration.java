@@ -37,7 +37,7 @@ public class AxonConfiguration {
     }
 
     @Autowired
-    public void registerInterceptors(@Lazy @Autowired CommandBus commandBus, @Autowired ValidationInterceptor validationInterceptor) {
+    public void registerInterceptors(CommandBus commandBus, ValidationInterceptor validationInterceptor) {
         if (commandBus instanceof SimpleCommandBus) {
             SimpleCommandBus simpleCommandBus = (SimpleCommandBus) commandBus;
             simpleCommandBus.registerHandlerInterceptor(validationInterceptor);

@@ -25,9 +25,6 @@ public class ValidationInterceptor<T extends Message<?>> implements MessageHandl
 
     private void handle(Message<T> message) throws ValidationException {
 
-        //Map<String,Object> beans = applicationContext.getBeansWithAnnotation(CommandValidator.class);
-
-        System.out.println(message.getClass());
         Class<?> commandClass = message.getPayloadType();
 
 

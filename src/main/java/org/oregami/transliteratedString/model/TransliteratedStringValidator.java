@@ -14,6 +14,8 @@ import java.util.List;
 @Component
 public class TransliteratedStringValidator {
 
+    public static final String DUPLICATE_ENTRY = "DUPLICATE_ENTRY";
+
     @Autowired
     TransliteratedStringRepository transliteratedStringRepository;
 

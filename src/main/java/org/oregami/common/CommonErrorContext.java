@@ -1,6 +1,9 @@
 package org.oregami.common;
 
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 /**
  * Context af this error.
  * e.g. the field name of the web form
@@ -40,5 +43,10 @@ public class CommonErrorContext {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
     }
 }

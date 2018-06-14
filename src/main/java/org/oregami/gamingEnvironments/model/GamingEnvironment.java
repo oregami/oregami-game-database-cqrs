@@ -17,6 +17,7 @@ import org.oregami.gamingEnvironments.event.TitleUsageAddedEvent;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Created by sebastian on 03.11.16.
@@ -61,6 +62,16 @@ public class GamingEnvironment {
     public String on(AddTitleUsageCommand command) {
         AggregateLifecycle.apply(new TitleUsageAddedEvent(command.getGamingEnvironmentId(), command.getTitleId(), command.getRegion()));
         return command.getGamingEnvironmentId();
+    }
+
+    @EventSourcingHandler
+    public void in(TitleUsageAddedEvent event) {
+        for (Title t: this.gametitles) {
+            if (t.getTitleId().equals(event.getTitleId())) {
+                t.getTitleUsages().add(new TitleUsage(UUID.randomUUID().toString(), event.getRegion()));
+            }
+        }
+
     }
 
 

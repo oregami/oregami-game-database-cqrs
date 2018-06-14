@@ -1,6 +1,8 @@
 package org.oregami.common;
 
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Class that represents errors that occur during service layer calls. 
@@ -30,7 +32,10 @@ public class CommonError {
     public String getMessageName() {
 		return messageName;
 	}
-    
-    
 
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
+    }
 }

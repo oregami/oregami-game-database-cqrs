@@ -4,6 +4,7 @@ import org.oregami.game.application.GameApplicationService;
 import org.oregami.game.model.GameEntryType;
 import org.oregami.game.model.ReleaseGroupReason;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
+import org.oregami.gamingEnvironments.model.Region;
 import org.oregami.transliteratedString.application.TransliteratedStringApplicationService;
 import org.oregami.transliteratedString.model.Language;
 import org.oregami.transliteratedString.model.Script;
@@ -44,8 +45,11 @@ public class DatabaseFiller implements CommandLineRunner {
         String sony_playstation_ge = UUID.randomUUID().toString();
         CompletableFuture<Object> ps1 = gamingEnvironmentApplicationService.createNewGamingEnvironment(sony_playstation_ge, "PS1");
 
-        gamingEnvironmentApplicationService.addTitle(ps1.get().toString(), sony_playstation_ts1.get().toString());
-        gamingEnvironmentApplicationService.addTitle(ps1.get().toString(), sony_playstation_ts2.get().toString());
+        CompletableFuture<Object> title1 = gamingEnvironmentApplicationService.addTitle("t1", ps1.get().toString(), sony_playstation_ts1.get().toString());
+        CompletableFuture<Object> title2 = gamingEnvironmentApplicationService.addTitle("t2", ps1.get().toString(), sony_playstation_ts2.get().toString());
+
+        gamingEnvironmentApplicationService.addTitleUsage("t1", ps1.get().toString(), title2.get().toString(), Region.JAPAN);
+        gamingEnvironmentApplicationService.addTitleUsage("t2", ps1.get().toString(), title1.get().toString(), Region.WORLDWIDE);
 
 
         CompletableFuture<Object> monkey_island = gameApplicationService.createNewGame(UUID.randomUUID().toString(), GameEntryType.GAME.toString(), "Monkey Island");

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head th:include="header :: header" th:with="title='Gaming Environment - One'"></head>
+
+<body>
+
+<nav th:replace="navigation :: navigation(URL_GAMINGENVIRONMENTS)"></nav>
+
+<div class="ui segment">
+
+    <h2 class="ui top attached header" th:text="${gamingEnvironment.workingTitle}"/>
+
+
+    <div class="ui grey inverted top attached header" th:text="#{common.actions}"/>
+    <div class="ui attached segment">
+
+        <th:block th:if="${gamingEnvironment.gametitles.size()>0}">
+
+
+            <div class="ui negative message" th:if="${result}" >
+                <div class="ui segments">
+                    <div class="ui segment" th:each="error: ${result.errors}">
+                        <p th:text="${error.messageName + ' (' + error.context.field + '/' + error.context.id + ')'}"></p>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+            <div class="ui attached segment" th:each="title : ${gamingEnvironment.gametitles}">
+                <!--<div>-->
+                <!--<label>title:</label>-->
+                <!--<span th:text="${title.id}"></span>-->
+                <!--</div>-->
+                <div>
+                    <!--
+                    <label>transliteratedString:</label>
+                    <a th:href="${'/transliteratedStrings/' + title.transliteratedStringId}" th:text="${title.transliteratedStringId}"></a>
+                    <br/>
+                    -->
+                    <h3 th:text="${title.transliteratedStringText}"></h3>
+
+
+
+                    <th:block th:switch="${title.titleUsages.size()>0}">
+                        <th:block th:case="true">
+                            <div class="ui attached segment" th:each="tusage : ${title.titleUsages}">
+                                Region: <span th:text="${tusage.region}"></span>
+                            </div>
+                        </th:block>
+                        <th:block th:case="false">
+                            <i>no region available yet</i>
+                        </th:block>
+                    </th:block>
+
+                    <form method="post"
+                          th:action="${'/gamingEnvironments/' + gamingEnvironment.id + '/editTitleUsage/addRegion'}">
+                        <input type="hidden" th:value="${title.getId()}" name="titleId"/>
+                        <div class="ui attached segment">
+                            <select name="region" th:value="${region}">
+                                <option th:text="${''}">select</option>
+                                <option th:each="r: ${availableRegions}" th:value="${r}" th:text="${r}"></option>
+                            </select>
+
+                            <button type="submit" class="ui primary basic button"
+                                    th:text="#{gamingEnvironment.addRegion}"/>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </th:block>
+
+    </div>
+
+</div>
+
+
+<div th:replace="footer :: copy"></div>
+
+</body>
+</html>

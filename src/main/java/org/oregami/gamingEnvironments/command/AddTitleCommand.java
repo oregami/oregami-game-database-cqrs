@@ -12,11 +12,14 @@ public class AddTitleCommand {
     @TargetAggregateIdentifier
     private String gamingEnvironmentId;
 
+    private final String newId;
+
     private String transliteratedStringId;
     private String transliteratedStringText;
 
 
-    public AddTitleCommand(String gamingEnvironmentId, String transliteratedStringId, String transliteratedStringText) {
+    public AddTitleCommand(String newId, String gamingEnvironmentId, String transliteratedStringId, String transliteratedStringText) {
+        this.newId = newId;
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.transliteratedStringId = transliteratedStringId;
         this.transliteratedStringText = transliteratedStringText;

@@ -5,9 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.model.AggregateMember;
 import org.axonframework.commandhandling.model.EntityId;
+import org.springframework.core.OrderComparator;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by sebastian on 28.02.17.
@@ -23,7 +25,7 @@ public class Title {
     private String transliteratedStringId;
 
     @AggregateMember
-    private Set<TitleUsage> titleUsages = new HashSet<>();
+    private Set<TitleUsage> titleUsages = new TreeSet<>(new OrderComparator());
 
     public Title(String titleId, String transliteratedStringId) {
         this.titleId = titleId;

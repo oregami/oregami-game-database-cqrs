@@ -5,17 +5,17 @@ package org.oregami.gamingEnvironments.command;
  */
 public class CreateGamingEnvironmentCommand {
 
-    private final String id;
+    private final String newId;
 
     String workingTitle;
 
-    public CreateGamingEnvironmentCommand(String id, String workingTitle) {
-        this.id = id;
+    public CreateGamingEnvironmentCommand(String newId, String workingTitle) {
+        this.newId = newId;
         this.workingTitle = workingTitle;
     }
 
     public String getId() {
-        return id;
+        return newId;
     }
 
     public String getWorkingTitle() {

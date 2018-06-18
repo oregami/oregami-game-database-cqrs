@@ -3,11 +3,13 @@ package org.oregami.gamingEnvironments.readmodel.withTitles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.oregami.common.BaseEntityUUID;
+import org.springframework.core.OrderComparator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by sebastian on 03.11.16.
@@ -22,7 +24,8 @@ public class GamingEnvironment extends BaseEntityUUID {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
     @JoinColumn
-    Set<Title> gametitles = new HashSet<>();
+    @OrderBy(value = "id")
+    Set<Title> gametitles = new TreeSet<>(new OrderComparator());
 
     @Column
     private LocalDateTime changeTime;

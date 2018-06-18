@@ -5,8 +5,13 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.EventStore;
+import org.oregami.common.CommonError;
+import org.oregami.common.CommonErrorContext;
+import org.oregami.common.CommonResult;
+import org.oregami.common.ValidationException;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
 import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
+import org.oregami.gamingEnvironments.model.Region;
 import org.oregami.gamingEnvironments.readmodel.withTitles.GamingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by sebastian on 17.12.16.
@@ -48,7 +54,8 @@ public class GamingEnvironmentResource {
     public String addTitle(@PathVariable String gamingEnvironmentId
             , @RequestParam String titleId
             , Model model) {
-        gamingEnvironmentApplicationService.addTitle(gamingEnvironmentId, titleId);
+        String newTitleId = UUID.randomUUID().toString();
+        gamingEnvironmentApplicationService.addTitle(newTitleId, gamingEnvironmentId, titleId);
         model.addAttribute("gamingEnvironmentId", gamingEnvironmentId);
         return "gamingEnvironments/update_done";
     }
@@ -80,6 +87,56 @@ public class GamingEnvironmentResource {
         model.addAttribute("gamingEnvironmentId", gamingEnvironmentId);
         model.addAttribute("titleId", titleId);
         return "gamingEnvironments/addTitle";
+    }
+
+
+    @GetMapping(value = "/{gamingEnvironmentId}/editTitleUsage")
+    public String titleUsage(@PathVariable String gamingEnvironmentId, Model model) {
+        GamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
+        model.addAttribute("gamingEnvironment", gamingEnvironment);
+
+        Region[] possibleRegions = Region.values();
+        model.addAttribute("availableRegions", Arrays.asList(possibleRegions));
+
+        return "gamingEnvironments/titleUsage/select";
+    }
+
+
+    @PostMapping(value = "/{gamingEnvironmentId}/editTitleUsage/addRegion")
+    public String titleUsageAddRegion(@PathVariable String gamingEnvironmentId,
+                                      @RequestParam(name="titleId") String titleId,
+                                      @RequestParam(name="region") String region,
+                                      Model model) {
+
+        String newTitleUsageId = UUID.randomUUID().toString();
+        CompletableFuture<Object> completableFuture = gamingEnvironmentApplicationService.addTitleUsage(newTitleUsageId, gamingEnvironmentId, titleId, Region.valueOf(region));
+
+        try {
+            Object result = completableFuture.get();
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+
+        } catch (ExecutionException e) {
+            if (e.getCause() instanceof ValidationException) {
+                model.addAttribute("result", ((ValidationException) e.getCause()).getResult());
+                model.addAttribute("errorRegion", region);
+
+            } else {
+                List<CommonError> errors = new ArrayList<>();
+                errors.add(new CommonError(new CommonErrorContext("general"), e.getMessage()));
+                model.addAttribute("result", new CommonResult<>(errors));
+            }
+        }
+
+
+        GamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
+        model.addAttribute("gamingEnvironment", gamingEnvironment);
+
+        Region[] possibleRegions = Region.values();
+        model.addAttribute("availableRegions", Arrays.asList(possibleRegions));
+
+        return "gamingEnvironments/titleUsage/select";
     }
 
 

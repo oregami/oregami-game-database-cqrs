@@ -14,9 +14,11 @@ import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
 import org.oregami.gamingEnvironments.event.TitleAddedEvent;
 import org.oregami.gamingEnvironments.event.TitleUsageAddedEvent;
+import org.springframework.core.OrderComparator;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.UUID;
 
 /**
@@ -34,7 +36,7 @@ public class GamingEnvironment {
     String workingTitle;
 
     @AggregateMember
-    Set<Title> gametitles = new HashSet<>();
+    Set<Title> gametitles = new TreeSet<>(new OrderComparator());
 
     @CommandHandler
     public GamingEnvironment(CreateGamingEnvironmentCommand command) {
@@ -48,8 +50,8 @@ public class GamingEnvironment {
 
     @CommandHandler
     public String on(AddTitleCommand command) {
-        AggregateLifecycle.apply(new TitleAddedEvent(command.getGamingEnvironmentId(), command.getTransliteratedStringId()));
-        return command.getGamingEnvironmentId();
+        AggregateLifecycle.apply(new TitleAddedEvent(command.getNewId(), command.getGamingEnvironmentId(), command.getTransliteratedStringId()));
+        return command.getNewId();
     }
 
     @EventSourcingHandler
@@ -60,15 +62,20 @@ public class GamingEnvironment {
 
     @CommandHandler
     public String on(AddTitleUsageCommand command) {
-        AggregateLifecycle.apply(new TitleUsageAddedEvent(command.getGamingEnvironmentId(), command.getTitleId(), command.getRegion()));
-        return command.getGamingEnvironmentId();
+
+        AggregateLifecycle.apply(new TitleUsageAddedEvent(
+                command.getGamingEnvironmentId(), //TODO woher die richtige neue ID nehmen?
+                command.getTitleId(), command.getRegion()));
+        return command.getNewId();
     }
 
     @EventSourcingHandler
     public void in(TitleUsageAddedEvent event) {
         for (Title t: this.gametitles) {
             if (t.getTitleId().equals(event.getTitleId())) {
-                t.getTitleUsages().add(new TitleUsage(UUID.randomUUID().toString(), event.getRegion()));
+                String newId = UUID.randomUUID().toString();
+                System.out.println("newId for TitleUsage: " + newId);
+                t.getTitleUsages().add(new TitleUsage(newId, event.getRegion()));
             }
         }
 

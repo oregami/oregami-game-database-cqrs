@@ -31,17 +31,23 @@
                 <a th:href="${'/transliteratedStrings/' + title.transliteratedStringId}" th:text="${title.transliteratedStringId}"></a>
                 <br/>
                 transliteratedStringText: <span th:text="${title.transliteratedStringText}"></span>
-
             </div>
+
+            <div class="ui attached segment" th:if="${title.titleUsages.size()>0}">
+                Regions: <th:block th:each="tusage, iterStat : ${title.titleUsages}" th:text="${(iterStat.index>0?', ':'') + tusage.region}"></th:block>
+            </div>
+
         </div>
     </th:block>
-
 
     <div class="ui grey inverted top attached header" th:text="#{common.actions}"/>
     <div class="ui attached segment">
 
         <a th:href="${'/gamingEnvironments/' + gamingEnvironment.id + '/addTitle'}">
             <button class="ui primary basic button" th:text="#{gamingEnvironment.addTitle}"/>
+        </a>
+        <a th:href="${'/gamingEnvironments/' + gamingEnvironment.id + '/editTitleUsage'}">
+            <button class="ui primary basic button" th:text="#{gamingEnvironment.addEditTitleUsage}"/>
         </a>
     </div>
 

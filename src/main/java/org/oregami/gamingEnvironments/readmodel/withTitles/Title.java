@@ -3,10 +3,12 @@ package org.oregami.gamingEnvironments.readmodel.withTitles;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.oregami.common.BaseEntityUUID;
+import org.springframework.core.OrderComparator;
 
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * Created by sebastian on 28.02.17.
@@ -24,7 +26,7 @@ public class Title extends BaseEntityUUID {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
     @JoinColumn
-    Set<TitleUsage> titleUsages = new HashSet<>();
+    Set<TitleUsage> titleUsages = new TreeSet<>(new OrderComparator());
 
 
     public Title(String id, String transliteratedStringId, String transliteratedStringText) {

@@ -8,10 +8,12 @@ import lombok.Getter;
 @Getter
 public class TitleAddedEvent {
 
+    private String newTitleId;
     private String gamingEnvironmentId;
     private String transliteratedStringId;
 
-    public TitleAddedEvent(String gamingEnvironmentId, String transliteratedStringId) {
+    public TitleAddedEvent(String newTitleId, String gamingEnvironmentId, String transliteratedStringId) {
+        this.newTitleId = newTitleId;
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.transliteratedStringId = transliteratedStringId;
     }

@@ -10,6 +10,7 @@ import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -28,19 +29,19 @@ public class GamingEnvironmentApplicationService {
         this.transliteratedStringRepository = transliteratedStringRepository;
     }
 
-    public CompletableFuture<Object> createNewGamingEnvironment(String id, String workingTitle) {
-        return commandGateway.send(new CreateGamingEnvironmentCommand(id, workingTitle));
+    public CompletableFuture<Object> createNewGamingEnvironment(String newId, String workingTitle) {
+        return commandGateway.send(new CreateGamingEnvironmentCommand(newId, workingTitle));
     }
 
 
-    public CompletableFuture<Object> addTitle(String gamingEnvironmentId, String transliteratedStringId) {
+    public CompletableFuture<Object> addTitle(String newTitleId, String gamingEnvironmentId, String transliteratedStringId) {
         TransliteratedString transliteratedString = transliteratedStringRepository.findOne(transliteratedStringId);
-        return commandGateway.send(new AddTitleCommand(gamingEnvironmentId, transliteratedStringId, transliteratedString.getText()));
+        return commandGateway.send(new AddTitleCommand(newTitleId, gamingEnvironmentId, transliteratedStringId, transliteratedString.getText()));
     }
 
 
-    public CompletableFuture<Object> addTitleUsage(String gamingEnvironmentId, String transliteratedStringId, Region region) {
-        AddTitleUsageCommand c = new AddTitleUsageCommand(gamingEnvironmentId, transliteratedStringId, region);
+    public CompletableFuture<Object> addTitleUsage(String newTitleUsageId, String gamingEnvironmentId, String titleId, Region region) {
+        AddTitleUsageCommand c = new AddTitleUsageCommand(newTitleUsageId, gamingEnvironmentId, titleId, region);
         return commandGateway.send(c);
     }
 

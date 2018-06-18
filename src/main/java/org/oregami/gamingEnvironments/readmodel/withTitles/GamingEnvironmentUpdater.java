@@ -39,7 +39,7 @@ public class GamingEnvironmentUpdater {
     public void on(TitleAddedEvent event) {
         GamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
         String tsText = transliteratedStringRepository.findOne(event.getTransliteratedStringId()).getText();
-        Title t = new Title(UUID.randomUUID().toString(), event.getTransliteratedStringId(), tsText);
+        Title t = new Title(event.getNewTitleId(), event.getTransliteratedStringId(), tsText);
         g.addTitle(t);
         repository.save(g);
     }
@@ -49,7 +49,7 @@ public class GamingEnvironmentUpdater {
     public void on(TitleUsageAddedEvent event) {
         GamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
         for (Title gt: g.getGametitles()) {
-            if (gt.getTransliteratedStringId()  .equals(event.getTitleId())) {
+            if (gt.getId().equals(event.getTitleId())) {
                 TitleUsage tu = new TitleUsage(UUID.randomUUID().toString(), event.getRegion());
                 gt.getTitleUsages().add(tu);
             }

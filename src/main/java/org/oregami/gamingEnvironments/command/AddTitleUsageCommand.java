@@ -16,11 +16,14 @@ public class AddTitleUsageCommand {
     @TargetAggregateIdentifier
     private String gamingEnvironmentId;
 
+    private final String newId;
+
     private String titleId;
     private Region region;
 
 
-    public AddTitleUsageCommand(String gamingEnvironmentId, String titleId, Region region) {
+    public AddTitleUsageCommand(String newId, String gamingEnvironmentId, String titleId, Region region) {
+        this.newId = newId;
         this.gamingEnvironmentId = gamingEnvironmentId;
         this.titleId = titleId;
         this.region = region;

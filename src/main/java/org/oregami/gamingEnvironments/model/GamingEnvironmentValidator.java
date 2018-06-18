@@ -34,7 +34,7 @@ public class GamingEnvironmentValidator {
                 if (t.getId().equals(c.getTitleId())) {
                     for (TitleUsage tu : t.getTitleUsages()) {
                         if (tu.getRegion().equals(c.getRegion())) {
-                            errors.add(new CommonError(new CommonErrorContext("region"), "DUPLICATE_TITLE_USAGE_FOR_REGION"));
+                            errors.add(new CommonError(new CommonErrorContext("region", c.getTitleId()), "DUPLICATE_TITLE_USAGE_FOR_REGION"));
                         }
                     }
                 }

@@ -21,11 +21,11 @@
         <h4>step1</h4>
         <form class="ui form" method="GET" th:attr="action=${'/transliteratedStrings/search'}">
             <div class="inline field">
-                <label>Search:</label>
+                <label>New title:</label>
                 <input name="searchTitle" type="text"/>
                 <span th:text="${titleId}"/>
             </div>
-            <button class="ui button" type="submit">find title</button>
+            <button class="ui button" type="submit">continue</button>
             <input type="hidden" name="backUrl" th:value="${'/gamingEnvironments/' + gamingEnvironmentId + '/addTitle'}"/>
         </form>
     </div>

@@ -5,6 +5,10 @@
 
 <head th:include="header :: header" th:with="title=''"></head>
 
+<meta th:if="${backUrl!=''}" http-equiv="refresh" th:attr="content=${'0; ' + backUrl + '?titleId=' + transliteratedStringId}" />
+<!-- th:attr="content=${'5; url=http://example.com/api/response?id=' + id}"  -->
+
+
 <body>
 
 <nav th:replace="navigation :: navigation(URL_TRANSLITERATEDSTRINGS)"></nav>

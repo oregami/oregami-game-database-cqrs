@@ -14,28 +14,25 @@
     <h2 class="ui top attached header" th:text="${gamingEnvironment.workingTitle}"/>
     <h4 class="ui attached header" th:text="#{gamingEnvironment.basicdata}"></h4>
     <div class="ui attached segment">
-        <div><label>id:</label> <span th:text="${gamingEnvironment.id}"/></div>
         <div><label>workingTitle:</label> <span th:text="${gamingEnvironment.workingTitle}"/></div>
         <div><label>changeTime</label> <span th:text="${gamingEnvironment.changeTime}"/></div>
     </div>
 
     <th:block th:if="${gamingEnvironment.gametitles.size()>0}">
-        <h4 class="ui attached header" th:text="#{gamingEnvironment.title}"></h4>
-        <div class="ui attached segment" th:each="title : ${gamingEnvironment.gametitles}">
-            <div>
-                <label>title:</label>
-                <span th:text="${title.id}"></span>
-            </div>
-            <div>
-                <label>transliteratedString:</label>
-                <a th:href="${'/transliteratedStrings/' + title.transliteratedStringId}" th:text="${title.transliteratedStringId}"></a>
-                <br/>
-                transliteratedStringText: <span th:text="${title.transliteratedStringText}"></span>
+        <h4 class="ui attached header" th:text="#{gamingEnvironment.titles}"></h4>
+        <div class="ui attached segment">
+            <!--<div>-->
+                <!--<label>titleId:</label>-->
+                <!--<span th:text="${title.id}"></span>-->
+            <!--</div>-->
+            <div th:each="title : ${gamingEnvironment.gametitles}">
+                <a th:href="${'/transliteratedStrings/' + title.transliteratedStringId}" th:text="${title.transliteratedStringText}"></a>
+                <span th:if="${title.titleUsages.size()>0}">
+                (<th:block th:each="tusage, iterStat : ${title.titleUsages}" th:text="${(iterStat.index>0?', ':'') + tusage.region}"></th:block>)
+                </span>
             </div>
 
-            <div class="ui attached segment" th:if="${title.titleUsages.size()>0}">
-                Regions: <th:block th:each="tusage, iterStat : ${title.titleUsages}" th:text="${(iterStat.index>0?', ':'') + tusage.region}"></th:block>
-            </div>
+
 
         </div>
     </th:block>

@@ -26,6 +26,7 @@ public class Title extends BaseEntityUUID {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
     @JoinColumn
+    @OrderBy(value = "id")
     Set<TitleUsage> titleUsages = new TreeSet<>(new OrderComparator());
 
 

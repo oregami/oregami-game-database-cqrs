@@ -10,26 +10,16 @@ import org.oregami.game.model.ReleaseGroupReason;
 public class ReleaseGroupAddedEvent {
 
 
-    private String gameId;
-    private final String releaseGroupId;
+    private final String gameId;
+    private final String newReleaseGroupId;
     private final ReleaseGroupReason releaseGroupReason;
 
 
-    public ReleaseGroupAddedEvent(String gameId, String releaseGroupId, ReleaseGroupReason releaseGroupReason) {
+    public ReleaseGroupAddedEvent(String gameId, String newReleaseGroupId, ReleaseGroupReason releaseGroupReason) {
         this.gameId = gameId;
-        this.releaseGroupId = releaseGroupId;
+        this.newReleaseGroupId = newReleaseGroupId;
         this.releaseGroupReason = releaseGroupReason;
     }
 
-    public String getReleaseGroupId() {
-        return releaseGroupId;
-    }
 
-    public ReleaseGroupReason getReleaseGroupReason() {
-        return releaseGroupReason;
-    }
-
-    public String getGameId() {
-        return gameId;
-    }
 }

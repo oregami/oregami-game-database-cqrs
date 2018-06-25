@@ -40,7 +40,7 @@ public class Game {
 
     @EventSourcingHandler
     public void in(GameCreatedEvent event) {
-        this.id = event.getGameId();
+        this.id = event.getNewId();
     }
 
     @CommandHandler
@@ -51,7 +51,7 @@ public class Game {
 
     @EventSourcingHandler
     public void in(ReleaseGroupAddedEvent event) {
-        ReleaseGroup rg = new ReleaseGroup(event.getReleaseGroupId(), event.getReleaseGroupReason());
+        ReleaseGroup rg = new ReleaseGroup(event.getNewReleaseGroupId(), event.getReleaseGroupReason());
         this.releaseGroups.add(rg);
     }
 

@@ -8,20 +8,20 @@ import org.oregami.transliteratedString.model.Script;
  */
 public class TransliteratedStringCreatedEvent {
 
-    private final String id;
+    private final String newId;
     private final String text;
     private final Language language;
     private final Script script;
 
     public TransliteratedStringCreatedEvent(String id, String text, Language language, Script script) {
-        this.id = id;
+        this.newId = id;
         this.text = text;
         this.language = language;
         this.script = script;
     }
 
-    public String getId() {
-        return id;
+    public String getNewId() {
+        return newId;
     }
 
     public String getText() {

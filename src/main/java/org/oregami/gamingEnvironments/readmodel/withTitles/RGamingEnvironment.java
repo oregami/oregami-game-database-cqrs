@@ -7,7 +7,6 @@ import org.springframework.core.OrderComparator;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -17,7 +16,7 @@ import java.util.TreeSet;
 @Entity
 @NoArgsConstructor
 @Getter
-public class GamingEnvironment extends BaseEntityUUID {
+public class RGamingEnvironment extends BaseEntityUUID {
 
     @Column
     String workingTitle;
@@ -25,12 +24,12 @@ public class GamingEnvironment extends BaseEntityUUID {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
     @JoinColumn
     @OrderBy(value = "id")
-    Set<Title> gametitles = new TreeSet<>(new OrderComparator());
+    Set<RTitle> gametitles = new TreeSet<>(new OrderComparator());
 
     @Column
     private LocalDateTime changeTime;
 
-    public GamingEnvironment(String id, String workingTitle) {
+    public RGamingEnvironment(String id, String workingTitle) {
         super(id);
         this.workingTitle = workingTitle;
     }
@@ -39,11 +38,11 @@ public class GamingEnvironment extends BaseEntityUUID {
         this.changeTime = changeTime;
     }
 
-    public void addTitle(Title t) {
+    public void addTitle(RTitle t) {
         gametitles.add(t);
     }
 
-    public Set<Title> getGametitles() {
+    public Set<RTitle> getGametitles() {
         return gametitles;
     }
 }

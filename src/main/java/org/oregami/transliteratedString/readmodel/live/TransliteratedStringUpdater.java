@@ -21,7 +21,7 @@ public class TransliteratedStringUpdater {
 
     @EventHandler
     public void on(TransliteratedStringCreatedEvent event) {
-        TransliteratedString g = new TransliteratedString(event.getId(), event.getText(), event.getLanguage(), event.getScript());
+        TransliteratedString g = new TransliteratedString(event.getNewId(), event.getText(), event.getLanguage(), event.getScript());
         g.setChangeTime(LocalDateTime.now());
         repository.save(g);
     }

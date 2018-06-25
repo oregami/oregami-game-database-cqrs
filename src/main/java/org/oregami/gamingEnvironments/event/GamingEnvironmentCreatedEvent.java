@@ -5,17 +5,17 @@ package org.oregami.gamingEnvironments.event;
  */
 public class GamingEnvironmentCreatedEvent {
 
-    private final String id;
+    private final String newId;
 
     String workingTitle;
 
-    public GamingEnvironmentCreatedEvent(String id, String workingTitle) {
-        this.id = id;
+    public GamingEnvironmentCreatedEvent(String newId, String workingTitle) {
+        this.newId = newId;
         this.workingTitle = workingTitle;
     }
 
-    public String getId() {
-        return id;
+    public String getNewId() {
+        return newId;
     }
 
     public String getWorkingTitle() {

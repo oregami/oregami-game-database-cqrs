@@ -22,7 +22,7 @@ public class RGameUpdater {
 
     @EventHandler
     public void on(GameCreatedEvent event) {
-        RGame g = new RGame(event.getGameId(), event.getGameEntryType(), event.getWorkingTitle());
+        RGame g = new RGame(event.getNewId(), event.getGameEntryType(), event.getWorkingTitle());
         g.setChangeTime(LocalDateTime.now());
         gameRepository.save(g);
     }
@@ -30,7 +30,7 @@ public class RGameUpdater {
     @EventHandler
     public void on(ReleaseGroupAddedEvent event) {
         RGame game = gameRepository.findOne(event.getGameId());
-        RReleaseGroup releaseGroup = new RReleaseGroup(event.getReleaseGroupId(), event.getReleaseGroupReason());
+        RReleaseGroup releaseGroup = new RReleaseGroup(event.getNewReleaseGroupId(), event.getReleaseGroupReason());
         game.addReleaseGroup(releaseGroup);
         game.setChangeTime(LocalDateTime.now());
         gameRepository.save(game);

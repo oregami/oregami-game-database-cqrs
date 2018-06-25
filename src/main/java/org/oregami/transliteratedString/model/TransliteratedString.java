@@ -28,7 +28,7 @@ public class TransliteratedString {
 
     @EventSourcingHandler
     public void in(TransliteratedStringCreatedEvent event) {
-        this.id = event.getId();
+        this.id = event.getNewId();
     }
 
     private String text;

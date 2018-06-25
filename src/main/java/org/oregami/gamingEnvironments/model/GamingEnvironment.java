@@ -16,7 +16,6 @@ import org.oregami.gamingEnvironments.event.TitleAddedEvent;
 import org.oregami.gamingEnvironments.event.TitleUsageAddedEvent;
 import org.springframework.core.OrderComparator;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.UUID;
@@ -45,7 +44,7 @@ public class GamingEnvironment {
 
     @EventSourcingHandler
     public void in(GamingEnvironmentCreatedEvent event) {
-        this.id = event.getId();
+        this.id = event.getNewId();
     }
 
     @CommandHandler

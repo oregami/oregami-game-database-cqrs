@@ -7,17 +7,14 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
 import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
-import org.oregami.gamingEnvironments.model.Region;
-import org.oregami.gamingEnvironments.readmodel.withTitles.GamingEnvironment;
-import org.oregami.gamingEnvironments.readmodel.withTitles.Title;
-import org.oregami.gamingEnvironments.readmodel.withTitles.TitleUsage;
+import org.oregami.gamingEnvironments.readmodel.withTitles.RGamingEnvironment;
+import org.oregami.gamingEnvironments.readmodel.withTitles.RTitle;
 import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -73,11 +70,11 @@ public class GamingEnvironmentApplicationServiceTest {
 
         Assert.assertThat(gamingEnvironmentRepository.count(), Matchers.is(count+1));
 
-        GamingEnvironment one = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
+        RGamingEnvironment one = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
         Assert.assertThat(one.getId(), Matchers.is(gamingEnvironmentId));
         Assert.assertThat(one.getGametitles().size(), Matchers.is(1));
 
-        Title title = one.getGametitles().iterator().next();
+        RTitle title = one.getGametitles().iterator().next();
         Assert.assertThat(title.getId(), Matchers.is(resultTitleId1));
 
         /*

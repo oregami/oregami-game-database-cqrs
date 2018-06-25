@@ -13,14 +13,14 @@ import org.oregami.game.model.GameEntryType;
 public class GameCreatedEvent {
 
     private final String workingTitle;
-    private String gameId;
+    private String newId;
 
     private GameEntryType gameEntryType;
 
 
 
-    public GameCreatedEvent(String gameId, GameEntryType gameEntryType, String workingTitle) {
-        this.gameId = gameId;
+    public GameCreatedEvent(String newId, GameEntryType gameEntryType, String workingTitle) {
+        this.newId = newId;
         this.gameEntryType = gameEntryType;
         this.workingTitle = workingTitle;
     }

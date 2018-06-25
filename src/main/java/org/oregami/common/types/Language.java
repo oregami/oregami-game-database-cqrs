@@ -5,6 +5,7 @@ package org.oregami.common.types;
  * Used in Game-Entity
  */
 public enum Language {
+    NOLANGUAGE,
     GERMAN ,
     MANDARIN ,
     CHINESE ,

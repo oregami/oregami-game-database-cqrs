@@ -6,7 +6,6 @@ import org.oregami.common.BaseEntityUUID;
 import org.springframework.core.OrderComparator;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -16,7 +15,7 @@ import java.util.TreeSet;
 @Entity
 @NoArgsConstructor
 @Getter
-public class Title extends BaseEntityUUID {
+public class RTitle extends BaseEntityUUID {
 
     @Column
     private String transliteratedStringId;
@@ -27,10 +26,10 @@ public class Title extends BaseEntityUUID {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch= FetchType.EAGER)
     @JoinColumn
     @OrderBy(value = "id")
-    Set<TitleUsage> titleUsages = new TreeSet<>(new OrderComparator());
+    Set<RTitleUsage> titleUsages = new TreeSet<>(new OrderComparator());
 
 
-    public Title(String id, String transliteratedStringId, String transliteratedStringText) {
+    public RTitle(String id, String transliteratedStringId, String transliteratedStringText) {
         super(id);
         this.transliteratedStringId = transliteratedStringId;
         this.transliteratedStringText = transliteratedStringText;

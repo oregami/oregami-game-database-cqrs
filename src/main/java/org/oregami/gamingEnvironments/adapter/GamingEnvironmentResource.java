@@ -12,7 +12,7 @@ import org.oregami.common.ValidationException;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
 import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.model.Region;
-import org.oregami.gamingEnvironments.readmodel.withTitles.GamingEnvironment;
+import org.oregami.gamingEnvironments.readmodel.withTitles.RGamingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,7 +68,7 @@ public class GamingEnvironmentResource {
 
     @GetMapping(value = "/{gamingEnvironmentId}")
     public String getOne(@PathVariable String gamingEnvironmentId, Model model) {
-        GamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
+        RGamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
         model.addAttribute("gamingEnvironment", gamingEnvironment);
         model.addAttribute("events", getEventsForGamingEnvironmentAsStrings(gamingEnvironmentId));
         return "gamingEnvironments/one";
@@ -92,7 +92,7 @@ public class GamingEnvironmentResource {
 
     @GetMapping(value = "/{gamingEnvironmentId}/editTitleUsage")
     public String titleUsage(@PathVariable String gamingEnvironmentId, Model model) {
-        GamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
+        RGamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
         model.addAttribute("gamingEnvironment", gamingEnvironment);
 
         Region[] possibleRegions = Region.values();
@@ -130,7 +130,7 @@ public class GamingEnvironmentResource {
         }
 
 
-        GamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
+        RGamingEnvironment gamingEnvironment = gamingEnvironmentRepository.findOne(gamingEnvironmentId);
         model.addAttribute("gamingEnvironment", gamingEnvironment);
 
         Region[] possibleRegions = Region.values();

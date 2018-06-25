@@ -30,16 +30,16 @@ public class GamingEnvironmentUpdater {
 
     @EventHandler
     public void on(GamingEnvironmentCreatedEvent event) {
-        GamingEnvironment g = new GamingEnvironment(event.getId(), event.getWorkingTitle());
+        RGamingEnvironment g = new RGamingEnvironment(event.getNewId(), event.getWorkingTitle());
         g.setChangeTime(LocalDateTime.now());
         repository.save(g);
     }
 
     @EventHandler
     public void on(TitleAddedEvent event) {
-        GamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
+        RGamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
         String tsText = transliteratedStringRepository.findOne(event.getTransliteratedStringId()).getText();
-        Title t = new Title(event.getNewTitleId(), event.getTransliteratedStringId(), tsText);
+        RTitle t = new RTitle(event.getNewTitleId(), event.getTransliteratedStringId(), tsText);
         g.addTitle(t);
         repository.save(g);
     }
@@ -47,10 +47,10 @@ public class GamingEnvironmentUpdater {
 
     @EventHandler
     public void on(TitleUsageAddedEvent event) {
-        GamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
-        for (Title gt: g.getGametitles()) {
+        RGamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
+        for (RTitle gt: g.getGametitles()) {
             if (gt.getId().equals(event.getTitleId())) {
-                TitleUsage tu = new TitleUsage(UUID.randomUUID().toString(), event.getRegion());
+                RTitleUsage tu = new RTitleUsage(UUID.randomUUID().toString(), event.getRegion());
                 gt.getTitleUsages().add(tu);
             }
         }

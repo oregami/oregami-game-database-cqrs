@@ -15,11 +15,11 @@ import javax.persistence.Entity;
 @Entity
 @NoArgsConstructor
 @Getter
-public class TitleUsage extends BaseEntityUUID {
+public class RTitleUsage extends BaseEntityUUID {
 
     private Region region;
 
-    public TitleUsage(String id, Region region) {
+    public RTitleUsage(String id, Region region) {
         super(id);
         this.region = region;
     }

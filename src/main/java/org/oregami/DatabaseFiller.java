@@ -1,10 +1,13 @@
 package org.oregami;
 
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.ImmutableTriple;
 import org.oregami.game.application.GameApplicationService;
 import org.oregami.game.model.GameEntryType;
 import org.oregami.game.model.ReleaseGroupReason;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
 import org.oregami.gamingEnvironments.model.Region;
+import org.oregami.gamingEnvironments.model.TitleType;
 import org.oregami.transliteratedString.application.TransliteratedStringApplicationService;
 import org.oregami.transliteratedString.model.Language;
 import org.oregami.transliteratedString.model.Script;
@@ -16,7 +19,9 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
@@ -39,18 +44,56 @@ public class DatabaseFiller implements CommandLineRunner {
         context.setAuthentication(getAuth());
         SecurityContextHolder.setContext(context);
 
+
+
+        //################   gaming environments ###################
+
+        //PS1
         CompletableFuture<Object> sony_playstation_ts1 = transliteratedStringApplicationService.createNewTransliteratedString(UUID.randomUUID().toString(), "Sony Playstation", Language.ENGLISH.toString(), Script.LATIN.toString());
         CompletableFuture<Object> sony_playstation_ts2 = transliteratedStringApplicationService.createNewTransliteratedString(UUID.randomUUID().toString(), "プレイステーション", Language.JAPANESE.toString(), Script.JAPANESE.toString());
-
         String sony_playstation_ge = UUID.randomUUID().toString();
         CompletableFuture<Object> ps1 = gamingEnvironmentApplicationService.createNewGamingEnvironment(sony_playstation_ge, "PS1");
-
         CompletableFuture<Object> title1 = gamingEnvironmentApplicationService.addTitle("t1", ps1.get().toString(), sony_playstation_ts1.get().toString());
         CompletableFuture<Object> title2 = gamingEnvironmentApplicationService.addTitle("t2", ps1.get().toString(), sony_playstation_ts2.get().toString());
 
         gamingEnvironmentApplicationService.addTitleUsage("t1", ps1.get().toString(), title2.get().toString(), Region.JAPAN);
         gamingEnvironmentApplicationService.addTitleUsage("t2", ps1.get().toString(), title1.get().toString(), Region.WORLDWIDE);
 
+        //C64
+        String idGeC64 = UUID.randomUUID().toString();
+        gamingEnvironmentApplicationService.createNewGamingEnvironment(idGeC64, "C64");
+        String idTsC64 = UUID.randomUUID().toString();
+        transliteratedStringApplicationService.createNewTransliteratedString(idTsC64, "C64", Language.NOLANGUAGE.toString(), Script.LATIN.toString());
+        String idTitleC64 = UUID.randomUUID().toString();
+        gamingEnvironmentApplicationService.addTitle(idTitleC64, idGeC64, idTsC64);
+        String idTitleUsageC64Worldwide = UUID.randomUUID().toString();
+        gamingEnvironmentApplicationService.addTitleUsage(idTitleUsageC64Worldwide, idGeC64, idTitleC64, Region.WORLDWIDE);
+
+        String idTsBrotkasten = UUID.randomUUID().toString();
+        transliteratedStringApplicationService.createNewTransliteratedString(idTsBrotkasten, "Brotkasten", Language.GERMAN.toString(), Script.LATIN.toString());
+        String idTitleBrotkasten = UUID.randomUUID().toString();
+        gamingEnvironmentApplicationService.addTitle(idTitleBrotkasten, idGeC64, idTsBrotkasten);
+        String idTitleUsageBrotkastenGermany = UUID.randomUUID().toString();
+        gamingEnvironmentApplicationService.addTitleUsage(idTitleUsageBrotkastenGermany, idGeC64, idTitleBrotkasten, Region.GERMANY);
+
+
+
+        List<ImmutablePair<ImmutableTriple<String, Language, Script>, List<ImmutablePair<Region, TitleType>>>> amigaInputList = new ArrayList<>();
+
+        List<ImmutablePair<Region, TitleType>> titleUsageInputList = new ArrayList<>();
+        titleUsageInputList.add(new ImmutablePair<>(Region.WORLDWIDE, TitleType.ORIGINAL_TITLE));
+        ImmutablePair<ImmutableTriple<String, Language, Script>, List<ImmutablePair<Region, TitleType>>> pair =
+                new ImmutablePair<ImmutableTriple<String, Language, Script>, List<ImmutablePair<Region, TitleType>>>(
+                        new ImmutableTriple<String, Language, Script>(
+                                "Commodore Amiga",
+                                Language.ENGLISH,
+                                Script.LATIN
+                        ),
+                        titleUsageInputList);
+        amigaInputList.add(pair);
+        createGamingEnvironment("Amiga", amigaInputList);
+
+        //########## games ###############
 
         CompletableFuture<Object> monkey_island = gameApplicationService.createNewGame(UUID.randomUUID().toString(), GameEntryType.GAME.toString(), "Monkey Island");
         gameApplicationService.addReleaseGroup(monkey_island.get().toString(), UUID.randomUUID().toString(), ReleaseGroupReason.ORIGINAL.toString());
@@ -65,7 +108,35 @@ public class DatabaseFiller implements CommandLineRunner {
 
 
 
+
+
     }
+
+    private void createGamingEnvironment(String workingTitle, List<ImmutablePair<ImmutableTriple<String, Language, Script>, List<ImmutablePair<Region, TitleType>>>> inputList) {
+
+
+        String geId = UUID.randomUUID().toString();
+        gamingEnvironmentApplicationService.createNewGamingEnvironment(geId, workingTitle);
+
+        for (ImmutablePair<ImmutableTriple<String, Language, Script>, List<ImmutablePair<Region, TitleType>>> input: inputList) {
+            ImmutableTriple<String, Language, Script> tsInput = input.left;
+
+            String idTs = UUID.randomUUID().toString();
+            transliteratedStringApplicationService.createNewTransliteratedString(idTs, tsInput.left, tsInput.middle.toString(), tsInput.right.toString());
+
+            for (ImmutablePair<Region, TitleType> titleUsageInput: input.right) {
+
+                String titleId = UUID.randomUUID().toString();
+                gamingEnvironmentApplicationService.addTitle(titleId, geId, idTs);
+                
+                String itTitleUsage = UUID.randomUUID().toString();
+                gamingEnvironmentApplicationService.addTitleUsage(itTitleUsage, geId, titleId, titleUsageInput.left);
+            }
+        }
+    }
+
+
+
 
     private Authentication getAuth() {
         return  new Authentication() {

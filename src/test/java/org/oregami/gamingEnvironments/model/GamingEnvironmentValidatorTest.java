@@ -29,6 +29,8 @@ public class GamingEnvironmentValidatorTest {
         AddTitleUsageCommand c2 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.GERMANY);
         CommonError error2 = v.checkSubRegions(g, c2);
         Assert.assertThat(error2, Matchers.notNullValue());
+        Assert.assertThat(error2.getMessageName(), Matchers.is(GamingEnvironmentMessages.REGIONS_NOT_CONSISTENT.name()));
+
 
     }
 
@@ -45,6 +47,8 @@ public class GamingEnvironmentValidatorTest {
         AddTitleUsageCommand c1 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.EUROPE);
         CommonError error1 = v.checkForDuplicates(g, c1);
         Assert.assertThat(error1, Matchers.notNullValue());
+        Assert.assertThat(error1.getMessageName(), Matchers.is(GamingEnvironmentMessages.DUPLICATE_TITLE_USAGE_FOR_REGION.name()));
+
 
         AddTitleUsageCommand c2 = new AddTitleUsageCommand("tu2", "ge1", "t1", Region.USA);
         CommonError error2 = v.checkForDuplicates(g, c2);

@@ -23,7 +23,8 @@
             <div class="ui negative message" th:if="${result}" >
                 <div class="ui segments">
                     <div class="ui segment" th:each="error: ${result.errors}">
-                        <p th:text="${error.messageName + ' (' + error.context.field + '/' + error.context.id + ')'}"></p>
+                        <span th:text="#{${error.messageName}}"></span>
+                        <br/><span style="font-size: 80%;" th:text="${' (' + error.context.field + '/' + error.context.id + ')'}"></span>
                     </div>
                 </div>
 

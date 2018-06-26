@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import static org.oregami.gamingEnvironments.model.GamingEnvironmentMessages.DUPLICATE_TITLE_USAGE_FOR_REGION;
+import static org.oregami.gamingEnvironments.model.GamingEnvironmentMessages.REGIONS_NOT_CONSISTENT;
+
 @Component
 public class GamingEnvironmentValidator {
 
@@ -47,7 +50,7 @@ public class GamingEnvironmentValidator {
             if (t.getId().equals(c.getTitleId())) {
                 for (RTitleUsage tu: t.getTitleUsages()) {
                     if (Region.isSubRegionOf(tu.getRegion(), c.getRegion()) || Region.isSubRegionOf(c.getRegion(), tu.getRegion())) {
-                        return (new CommonError(new CommonErrorContext("region", c.getTitleId()), "REGIONS_NOT_CONSISTENT"));
+                        return (new CommonError(new CommonErrorContext("region", c.getTitleId()), REGIONS_NOT_CONSISTENT.name()));
                     }
                 }
             }
@@ -62,7 +65,7 @@ public class GamingEnvironmentValidator {
             if (t.getId().equals(c.getTitleId())) {
                 for (RTitleUsage tu : t.getTitleUsages()) {
                     if (tu.getRegion().equals(c.getRegion())) {
-                        return (new CommonError(new CommonErrorContext("region", c.getTitleId()), "DUPLICATE_TITLE_USAGE_FOR_REGION"));
+                        return (new CommonError(new CommonErrorContext("region", c.getTitleId()), DUPLICATE_TITLE_USAGE_FOR_REGION.name()));
                     }
                 }
             }

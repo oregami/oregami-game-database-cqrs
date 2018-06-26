@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <html lang="de" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 
 <head th:include="header :: header" th:with="title='Gaming Environment - One'"></head>
@@ -9,7 +10,9 @@
 
 <nav th:replace="navigation :: navigation(URL_GAMINGENVIRONMENTS)"></nav>
 
-<div class="ui segment">
+<div th:replace="loginfirst :: copy"></div>
+
+<div class="ui segment" sec:authorize="isAuthenticated()">
 
     <h2 class="ui top attached header" th:text="${gamingEnvironment.workingTitle}"/>
 

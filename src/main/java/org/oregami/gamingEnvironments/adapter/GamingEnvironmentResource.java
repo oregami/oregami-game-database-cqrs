@@ -147,6 +147,9 @@ public class GamingEnvironmentResource {
         while (iterator.hasNext()) {
             LinkedHashMap<String, Object> map = new LinkedHashMap<>();
             DomainEventMessage<?> event = iterator.next();
+            map.put("Identifier", event.getIdentifier());
+            map.put("SequenceNumber", event.getSequenceNumber());
+
             map.put("Timestamp", event.getTimestamp());
             map.put("Payload", event.getPayloadType().getSimpleName() + ": " + ToStringBuilder.reflectionToString(event.getPayload(), RecursiveToStringStyle.JSON_STYLE));
             map.put("MetaData", ToStringBuilder.reflectionToString(event.getMetaData(), RecursiveToStringStyle.JSON_STYLE));

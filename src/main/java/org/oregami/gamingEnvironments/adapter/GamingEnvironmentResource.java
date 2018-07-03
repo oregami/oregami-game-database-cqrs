@@ -5,13 +5,11 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.axonframework.eventsourcing.DomainEventMessage;
 import org.axonframework.eventsourcing.eventstore.DomainEventStream;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.oregami.common.CommonError;
-import org.oregami.common.CommonErrorContext;
-import org.oregami.common.CommonResult;
-import org.oregami.common.ValidationException;
+import org.oregami.common.*;
 import org.oregami.gamingEnvironments.application.GamingEnvironmentApplicationService;
 import org.oregami.gamingEnvironments.model.GamingEnvironmentRepository;
 import org.oregami.gamingEnvironments.model.Region;
+import org.oregami.gamingEnvironments.model.TitleType;
 import org.oregami.gamingEnvironments.readmodel.withTitles.RGamingEnvironment;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,6 +95,8 @@ public class GamingEnvironmentResource {
 
         Region[] possibleRegions = Region.values();
         model.addAttribute("availableRegions", Arrays.asList(possibleRegions));
+        TitleType[] possibleTitleTypes = TitleType.values();
+        model.addAttribute("availableTitleTypes", Arrays.asList(possibleTitleTypes));
 
         return "gamingEnvironments/titleUsage/select";
     }
@@ -106,10 +106,11 @@ public class GamingEnvironmentResource {
     public String titleUsageAddRegion(@PathVariable String gamingEnvironmentId,
                                       @RequestParam(name="titleId") String titleId,
                                       @RequestParam(name="region") String region,
+                                      @RequestParam(name="titleType") String titleType,
                                       Model model) {
 
         String newTitleUsageId = UUID.randomUUID().toString();
-        CompletableFuture<Object> completableFuture = gamingEnvironmentApplicationService.addTitleUsage(newTitleUsageId, gamingEnvironmentId, titleId, Region.valueOf(region));
+        CompletableFuture<Object> completableFuture = gamingEnvironmentApplicationService.addTitleUsage(newTitleUsageId, gamingEnvironmentId, titleId, Region.valueOf(region), TitleType.valueOf(titleType));
 
         try {
             Object result = completableFuture.get();

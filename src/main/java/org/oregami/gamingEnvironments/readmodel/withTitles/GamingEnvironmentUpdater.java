@@ -1,5 +1,6 @@
 package org.oregami.gamingEnvironments.readmodel.withTitles;
 
+import org.axonframework.config.ProcessingGroup;
 import org.axonframework.eventhandling.EventHandler;
 import org.oregami.gamingEnvironments.event.GamingEnvironmentCreatedEvent;
 import org.oregami.gamingEnvironments.event.TitleAddedEvent;
@@ -16,6 +17,7 @@ import java.util.UUID;
  * Created by sebastian on 19.02.17.
  */
 @Component
+@ProcessingGroup("GamingEnvironmentUpdater")
 public class GamingEnvironmentUpdater {
 
     @Autowired //TODO use decoupled access (REST call) instead of direct repository call
@@ -50,7 +52,7 @@ public class GamingEnvironmentUpdater {
         RGamingEnvironment g = repository.findOne(event.getGamingEnvironmentId());
         for (RTitle gt: g.getGametitles()) {
             if (gt.getId().equals(event.getTitleId())) {
-                RTitleUsage tu = new RTitleUsage(UUID.randomUUID().toString(), event.getRegion());
+                RTitleUsage tu = new RTitleUsage(UUID.randomUUID().toString(), event.getRegion(), event.getTitleType());
                 gt.getTitleUsages().add(tu);
             }
         }

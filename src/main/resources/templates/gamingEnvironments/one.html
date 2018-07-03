@@ -28,7 +28,7 @@
             <div th:each="title : ${gamingEnvironment.gametitles}">
                 <a th:href="${'/transliteratedStrings/' + title.transliteratedStringId}" th:text="${title.transliteratedStringText}"></a>
                 <span th:if="${title.titleUsages.size()>0}">
-                (<th:block th:each="tusage, iterStat : ${title.titleUsages}" th:text="${(iterStat.index>0?', ':'') + tusage.region}"></th:block>)
+                (<th:block th:each="tusage, iterStat : ${title.titleUsages}" th:text="${(iterStat.index>0?', ':'') + tusage.region + ' / ' + tusage.titleType}"></th:block>)
                 </span>
             </div>
 

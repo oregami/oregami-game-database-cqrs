@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.axonframework.commandhandling.model.EntityId;
 import org.oregami.common.BaseEntityUUID;
 import org.oregami.gamingEnvironments.model.Region;
+import org.oregami.gamingEnvironments.model.TitleType;
 
 import javax.persistence.Entity;
 
@@ -18,10 +19,12 @@ import javax.persistence.Entity;
 public class RTitleUsage extends BaseEntityUUID {
 
     private Region region;
+    private TitleType titleType;
 
-    public RTitleUsage(String id, Region region) {
+    public RTitleUsage(String id, Region region, TitleType titleType) {
         super(id);
         this.region = region;
+        this.titleType = titleType;
     }
 
 }

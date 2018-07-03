@@ -5,12 +5,12 @@ import org.oregami.gamingEnvironments.command.AddTitleCommand;
 import org.oregami.gamingEnvironments.command.AddTitleUsageCommand;
 import org.oregami.gamingEnvironments.command.CreateGamingEnvironmentCommand;
 import org.oregami.gamingEnvironments.model.Region;
+import org.oregami.gamingEnvironments.model.TitleType;
 import org.oregami.transliteratedString.model.TransliteratedStringRepository;
 import org.oregami.transliteratedString.readmodel.live.TransliteratedString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 import java.util.concurrent.CompletableFuture;
 
 /**
@@ -40,8 +40,8 @@ public class GamingEnvironmentApplicationService {
     }
 
 
-    public CompletableFuture<Object> addTitleUsage(String newTitleUsageId, String gamingEnvironmentId, String titleId, Region region) {
-        AddTitleUsageCommand c = new AddTitleUsageCommand(newTitleUsageId, gamingEnvironmentId, titleId, region);
+    public CompletableFuture<Object> addTitleUsage(String newTitleUsageId, String gamingEnvironmentId, String titleId, Region region, TitleType titleType) {
+        AddTitleUsageCommand c = new AddTitleUsageCommand(newTitleUsageId, gamingEnvironmentId, titleId, region, titleType);
         return commandGateway.send(c);
     }
 

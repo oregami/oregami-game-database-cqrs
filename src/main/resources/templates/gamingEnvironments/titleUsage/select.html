@@ -69,7 +69,10 @@
                                 <option th:text="${''}">select</option>
                                 <option th:each="r: ${availableRegions}" th:value="${r}" th:text="${r}"></option>
                             </select>
-
+                            <select name="titleType" th:value="${region}">
+                                <option th:text="${''}">select</option>
+                                <option th:each="t: ${availableTitleTypes}" th:value="${t}" th:text="${t}"></option>
+                            </select>
                             <button type="submit" class="ui primary basic button"
                                     th:text="#{gamingEnvironment.addRegion}"/>
                         </div>

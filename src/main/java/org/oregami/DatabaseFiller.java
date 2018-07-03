@@ -45,6 +45,7 @@ public class DatabaseFiller implements CommandLineRunner {
         SecurityContextHolder.setContext(context);
 
 
+        TitleType titleType = TitleType.ORIGINAL_TITLE;
 
         //################   gaming environments ###################
 
@@ -56,8 +57,8 @@ public class DatabaseFiller implements CommandLineRunner {
         CompletableFuture<Object> title1 = gamingEnvironmentApplicationService.addTitle("t1", ps1.get().toString(), sony_playstation_ts1.get().toString());
         CompletableFuture<Object> title2 = gamingEnvironmentApplicationService.addTitle("t2", ps1.get().toString(), sony_playstation_ts2.get().toString());
 
-        gamingEnvironmentApplicationService.addTitleUsage("t1", ps1.get().toString(), title2.get().toString(), Region.JAPAN);
-        gamingEnvironmentApplicationService.addTitleUsage("t2", ps1.get().toString(), title1.get().toString(), Region.WORLDWIDE);
+        gamingEnvironmentApplicationService.addTitleUsage("t1", ps1.get().toString(), title2.get().toString(), Region.JAPAN, titleType);
+        gamingEnvironmentApplicationService.addTitleUsage("t2", ps1.get().toString(), title1.get().toString(), Region.WORLDWIDE, titleType);
 
         //C64
         String idGeC64 = UUID.randomUUID().toString();
@@ -67,14 +68,14 @@ public class DatabaseFiller implements CommandLineRunner {
         String idTitleC64 = UUID.randomUUID().toString();
         gamingEnvironmentApplicationService.addTitle(idTitleC64, idGeC64, idTsC64);
         String idTitleUsageC64Worldwide = UUID.randomUUID().toString();
-        gamingEnvironmentApplicationService.addTitleUsage(idTitleUsageC64Worldwide, idGeC64, idTitleC64, Region.WORLDWIDE);
+        gamingEnvironmentApplicationService.addTitleUsage(idTitleUsageC64Worldwide, idGeC64, idTitleC64, Region.WORLDWIDE, TitleType.ABBREVIATION);
 
         String idTsBrotkasten = UUID.randomUUID().toString();
         transliteratedStringApplicationService.createNewTransliteratedString(idTsBrotkasten, "Brotkasten", Language.GERMAN.toString(), Script.LATIN.toString());
         String idTitleBrotkasten = UUID.randomUUID().toString();
         gamingEnvironmentApplicationService.addTitle(idTitleBrotkasten, idGeC64, idTsBrotkasten);
         String idTitleUsageBrotkastenGermany = UUID.randomUUID().toString();
-        gamingEnvironmentApplicationService.addTitleUsage(idTitleUsageBrotkastenGermany, idGeC64, idTitleBrotkasten, Region.GERMANY);
+        gamingEnvironmentApplicationService.addTitleUsage(idTitleUsageBrotkastenGermany, idGeC64, idTitleBrotkasten, Region.GERMANY, TitleType.INOFFICIAL_TITLE);
 
 
 
@@ -129,8 +130,8 @@ public class DatabaseFiller implements CommandLineRunner {
                 String titleId = UUID.randomUUID().toString();
                 gamingEnvironmentApplicationService.addTitle(titleId, geId, idTs);
                 
-                String itTitleUsage = UUID.randomUUID().toString();
-                gamingEnvironmentApplicationService.addTitleUsage(itTitleUsage, geId, titleId, titleUsageInput.left);
+                String idTitleUsage = UUID.randomUUID().toString();
+                gamingEnvironmentApplicationService.addTitleUsage(idTitleUsage, geId, titleId, titleUsageInput.left, titleUsageInput.right);
             }
         }
     }

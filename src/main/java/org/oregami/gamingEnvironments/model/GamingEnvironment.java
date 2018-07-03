@@ -64,7 +64,7 @@ public class GamingEnvironment {
 
         AggregateLifecycle.apply(new TitleUsageAddedEvent(
                 command.getGamingEnvironmentId(), //TODO woher die richtige neue ID nehmen?
-                command.getTitleId(), command.getRegion()));
+                command.getTitleId(), command.getRegion(), command.getTitlyType()));
         return command.getNewId();
     }
 

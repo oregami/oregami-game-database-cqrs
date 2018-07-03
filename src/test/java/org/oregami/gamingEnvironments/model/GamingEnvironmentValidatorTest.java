@@ -16,17 +16,17 @@ public class GamingEnvironmentValidatorTest {
     public void checkSubRegions() {
         RGamingEnvironment g = new RGamingEnvironment("ge1", "text");
         RTitle t1 = new RTitle("t1", "ts1", "text1");
-        RTitleUsage tu1 = new RTitleUsage("id", Region.EUROPE);
+        RTitleUsage tu1 = new RTitleUsage("id", Region.EUROPE, TitleType.ORIGINAL_TITLE);
         t1.getTitleUsages().add(tu1);
         g.getGametitles().add(t1);
 
         GamingEnvironmentValidator v = new GamingEnvironmentValidator();
 
-        AddTitleUsageCommand c1 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.USA);
+        AddTitleUsageCommand c1 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.USA, TitleType.ORIGINAL_TITLE);
         CommonError error1 = v.checkSubRegions(g, c1);
         Assert.assertThat(error1, Matchers.nullValue());
 
-        AddTitleUsageCommand c2 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.GERMANY);
+        AddTitleUsageCommand c2 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.GERMANY, TitleType.INOFFICIAL_TITLE);
         CommonError error2 = v.checkSubRegions(g, c2);
         Assert.assertThat(error2, Matchers.notNullValue());
         Assert.assertThat(error2.getMessageName(), Matchers.is(GamingEnvironmentMessages.REGIONS_NOT_CONSISTENT.name()));
@@ -38,19 +38,19 @@ public class GamingEnvironmentValidatorTest {
     public void checkForDuplicates() {
         RGamingEnvironment g = new RGamingEnvironment("ge1", "text");
         RTitle t1 = new RTitle("t1", "ts1", "text1");
-        RTitleUsage tu1 = new RTitleUsage("id", Region.EUROPE);
+        RTitleUsage tu1 = new RTitleUsage("id", Region.EUROPE, TitleType.ORIGINAL_TITLE);
         t1.getTitleUsages().add(tu1);
         g.getGametitles().add(t1);
 
         GamingEnvironmentValidator v = new GamingEnvironmentValidator();
 
-        AddTitleUsageCommand c1 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.EUROPE);
+        AddTitleUsageCommand c1 = new AddTitleUsageCommand("tu1", "ge1", "t1", Region.EUROPE, TitleType.ORIGINAL_TITLE);
         CommonError error1 = v.checkForDuplicates(g, c1);
         Assert.assertThat(error1, Matchers.notNullValue());
         Assert.assertThat(error1.getMessageName(), Matchers.is(GamingEnvironmentMessages.DUPLICATE_TITLE_USAGE_FOR_REGION.name()));
 
 
-        AddTitleUsageCommand c2 = new AddTitleUsageCommand("tu2", "ge1", "t1", Region.USA);
+        AddTitleUsageCommand c2 = new AddTitleUsageCommand("tu2", "ge1", "t1", Region.USA, TitleType.ORIGINAL_TITLE);
         CommonError error2 = v.checkForDuplicates(g, c2);
         Assert.assertThat(error2, Matchers.nullValue());
 
